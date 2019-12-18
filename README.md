@@ -2,7 +2,7 @@
 
 ## 视频来源
 > 1. 尚硅谷[官网](http://www.atguigu.com/)，关注公众号后视频可以免费下载
-> 2. 谷粒学院[官网](http://www.gulixueyuan.com/)，Spring、Spring MVC、Spring Boot非常好
+> 2. 谷粒学院[官网](http://www.gulixueyuan.com/)，Spring、Spring MVC、Spring Boot课程非常nice
 
 
 ## 注意事项
