@@ -1,5 +1,5 @@
 /**
- * 数值的整数次方
+ * 数值的整数次方，保证base和exponent不同时为0
  *
  * @author sherman
  */
