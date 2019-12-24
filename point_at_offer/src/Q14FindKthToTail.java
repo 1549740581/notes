@@ -5,7 +5,7 @@
  */
 public class Q14FindKthToTail {
     public ListNode findKthToTail(ListNode head, int k) {
-        if (head == null || k < 0) {
+        if (head == null || k <= 0) {
             return null;
         }
         ListNode slow, fast;
