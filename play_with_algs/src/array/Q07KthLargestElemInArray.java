@@ -21,6 +21,10 @@ public class Q07KthLargestElemInArray {
      */
     private int findKthLargest(int[] arr, int lo, int hi, int k) {
         int idx = partition(arr, lo, hi);
+        /**
+         * k范围[1, arr.length]
+         * idx范围[0, arr.length - 1]
+         */
         while (arr.length - k != idx) {
             if (idx < arr.length - k) {
                 idx = partition(arr, idx + 1, hi);
