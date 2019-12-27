@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 配置包自动扫描 -->
+    <context:component-scan base-package="nwpu.sherman"/>
+
+    <!-- 配置视图解析器：把Controller返回的字符串解析成实际物理视图 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 默认: prefix="/WEB-INF/views/" suffix=".jsp" -->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 自定义视图解析器 InternalResourceViewResolver的默认优先级为：Integer.MAX_VALUE -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+        <property name="order" value="100"/>
+    </bean>
+
+    <!-- 配置支持国际化的Bean MessageSource -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="i18n"/>
+    </bean>
+
+    <!-- 希望直接转发到对应的页面，而不需要经过任何Controller，需要使用mvc:view-controller，
+         并且实际开发中，该标签需要和<mvc:annotation-driven>配合使用，防止出错
+     -->
+    <mvc:view-controller path="/view_controller/success" view-name="success"/>
+    <!--
+        当使用@DateTimeFormat和@NumberFormat时，装配自定义ConversionService会出错！
+        若想自定义ConversionService和Spring MVC默认的同时存在，可以使用：
+        FormattingConversionServiceFactoryBean
+     -->
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
+
+    <!-- 处理静态资源 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- class="org.springframework.context.support.ConversionServiceFactoryBean"  -->
+    <mvc:annotation-driven/>
+    <!-- 配置一个ConversionService -->
+    <!--    <bean id="conversionService"-->
+    <!--          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+    <!--        <property name="converters">-->
+    <!--            <set>-->
+    <!--                <ref bean="customConversionService"/>-->
+    <!--            </set>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+    <!--
+         配置SessionLocalResolver
+         注意id名称现在必须为LocaleResolver
+    -->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+
+    <!-- 配置LocaleChangeInterceptor -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+    </mvc:interceptors>
+
+    <!-- 配置MultipartResolver，进行文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <!-- 配置自定义拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/i18n/change"/>
+            <bean class="nwpu.sherman.intercept.CustomIntercept"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 配置使用SimpleMappingExceptionResolver来映射ArrayIndexOutOfBoundsException -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!-- 默认情况下，exceptionAttributes值为exception，这里修改它方面将错误信息传递当error_page中 -->
+        <property name="exceptionAttribute" value="error"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.ArrayIndexOutOfBoundsException">error_page</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
