@@ -13,7 +13,7 @@ public class Q42TwoSum {
         while (lo < hi) {
             int curSum = array[lo] + array[hi];
             /**
-             * lo和hi越靠近中间，乘积越大
+             * 两数和相同的情况下，lo和hi越靠近中间，乘积越大
              */
             if (curSum == sum) {
                 arrayList.add(array[lo]);
