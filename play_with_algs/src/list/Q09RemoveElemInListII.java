@@ -11,6 +11,30 @@ import utils.ListNode;
  * @author sherman
  */
 public class Q09RemoveElemInListII {
+
+    public ListNode deleteDuplication01(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        ListNode pre = dummyNode;
+        ListNode cur = pre.next;
+        while (cur != null) {
+            if (cur.next != null && cur.next.val == cur.val) {
+                while (cur.next != null && cur.next.val == cur.val) {
+                    cur = cur.next;
+                }
+                cur = cur.next;
+                pre.next = cur;
+            } else {
+                pre = cur;
+                cur = cur.next;
+            }
+        }
+        return dummyNode.next;
+    }
+
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null) {
             return null;
