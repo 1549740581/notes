@@ -645,11 +645,11 @@ HyperLogLog本质上还是字符串，但是可以通过极小内存完成独立
 ```shell
 >> pfadd ip1 123 123 124 125 126 126
 (integer) 1
-127.0.0.1:6379> pfcount ip1
+>> pfcount ip1
 (integer) 4
 >> pfadd ip2 123 126 127 128
 (integer) 1
-127.0.0.1:6379> pfcount ip2
+>> pfcount ip2
 (integer) 4
 >> pfmerge ip1_ip2 ip1 ip2
 OK
@@ -797,4 +797,3 @@ redis stream的结构有一个消息链表，将所有加入的消息都都串�
 (nil)
 (2.07s)
 ```
-
