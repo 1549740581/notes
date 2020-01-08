@@ -80,9 +80,4 @@ public class Q29GetLeastNumbers {
         input[i] = input[j];
         input[j] = tmp;
     }
-
-    public static void main(String[] args) {
-        int[] arr = {4,5,1,6,2,7,3,8};
-        System.out.println(new Q29GetLeastNumbers().getLeastNumbers(arr, 10));
-    }
 }
