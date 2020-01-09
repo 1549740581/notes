@@ -38,13 +38,4 @@ public class Q13GroupAnagrams {
         }
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-        List<List<String>> lists = new Q13GroupAnagrams().groupAnagrams(strs);
-        for (List<String> list : lists) {
-            list.forEach(System.out::println);
-            System.out.println("========");
-        }
-    }
 }
