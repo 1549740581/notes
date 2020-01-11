@@ -31,10 +31,4 @@ public class Q02EvalRPN {
         }
         return stk.pop();
     }
-
-    public static void main(String[] args) {
-        String[] tokens = {"2", "1", "+", "3", "*"};
-        int res = new Q02EvalRPN().evalRPN(tokens);
-        System.out.println(res);
-    }
 }

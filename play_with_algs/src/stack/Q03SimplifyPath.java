@@ -32,9 +32,4 @@ public class Q03SimplifyPath {
         }
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-        String str = "";
-        System.out.println(new Q03SimplifyPath().simplifyPath(str));
-    }
 }
