@@ -9,7 +9,7 @@ package dp;
  * 约束条件：
  * SUM{num[i] * wgt[i] <= N}, num[i]表示第i个物品的数量，只能取0、1两种可能
  *
- * @auther sherman
+ * @author sherman
  */
 public class Q13ZeroOneBag01 {
     /**
