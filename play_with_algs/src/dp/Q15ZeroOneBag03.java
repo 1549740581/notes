@@ -24,4 +24,25 @@ public class Q15ZeroOneBag03 {
         }
         return dp[N];
     }
+
+    /**
+     * 使用二进制优化，将次数变为：1，2，4... nums[i] - 2^k + 1
+     * 例如nums[i] == 13, 次数优化为：1，2，4，6
+     */
+    public int zeroOneBagOptimized(int[] wgt, int[] val, int[] nums, int M, int N) {
+        int[] dp = new int[N + 1];
+        for (int i = 0; i < M; i++) {
+            int cnt = Math.min(nums[i], N / wgt[i]);
+            for (int k = 1; cnt > 0; k <<= 1) {
+                if (k > cnt) {
+                    k = cnt;
+                }
+                cnt -= k;
+                for (int j = N; j >= wgt[i] * k; --j) {
+                    dp[j] = Math.max(dp[j], dp[j - k * wgt[i]] + val[i] * k);
+                }
+            }
+        }
+        return dp[N];
+    }
 }
