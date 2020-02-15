@@ -63,7 +63,7 @@ redis-server*
 redis-trib.rb*
 
 # 除此之外：
-ls -F | grep "/" # 查找目录
+ls -F | grep "/" # 列出所有文件，其中*表示是一个可执行文件
 ls -F | grep "=" # 查找套接字
 ls -F | grep "|" # 查找FIFOS
 ls -F | grep "#" # 查找链接符号
@@ -691,7 +691,7 @@ redis在v3.2以后增加了地理位置的处理相关数据结构。
 - geopos key member [member ...]：获取地理位置信息
 - geodist key member1 member2 [unit]：计算两个位置距离，单位unit有m、km、mi、ft四种，默认单位m
 - geohash key member [member ...]：获取地理位置的geohash值
-- georadius key longtide latitude radisu m|km|ft|mi [withcoord] [withdist] [withhash] [COUNT count] [ASC|DESC] [STORE key] [STOREDIST key]：以给定的经纬度为中心， 返回与中心的距离不超过给定最大距离的所有位置元素。
+- georadius key longtide latitude radius m|km|ft|mi [withcoord] [withdist] [withhash] [COUNT count] [ASC|DESC] [STORE key] [STOREDIST key]：以给定的经纬度为中心， 返回与中心的距离不超过给定最大距离的所有位置元素。
   - [withcoord]：返回结果包含经纬度信息
   - [withdist]：返回结果中包含距离信息
   - [withhash]：返回结果中包含geohash值
@@ -797,3 +797,4 @@ redis stream的结构有一个消息链表，将所有加入的消息都都串�
 (nil)
 (2.07s)
 ```
+
