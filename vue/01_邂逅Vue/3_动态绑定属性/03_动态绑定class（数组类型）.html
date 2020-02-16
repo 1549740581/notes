@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <title>动态绑定class（数组类型）</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- 
+        1. 注意name加了''，代表普通字符串，active和line被认为是变量，被解析成aaaa、bbbb，
+        2. 最终h2的class有：title name aaaa bbbb
+      -->
+      <h2 class="title" :class="['name', active, line]">{{message}}</h2>
+
+      <!-- 也可以使用函数代替数组 -->
+      <h2 class="title" :class="getClasses()">{{message}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "msg",
+        active: "aaaa",
+        line: "bbbb"
+      },
+      methods: {
+        getClasses: function() {
+          return [this.active, this.line];
+        }
+      }
+    });
+  </script>
+</html>

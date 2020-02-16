@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <title>v-html</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{message}}: hello</h2>
+      <!-- v-text获取到的值会覆盖掉: hello -->
+      <h2 v-text="message">: hello</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "sherman"
+      }
+    });
+  </script>
+</html>

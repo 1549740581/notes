@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <title>计算属性和方法对比</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{fullName}}</h2>
+      <h2>{{fullName}}</h2>
+      <h2>{{fullName}}</h2>
+
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        firstName: "Tang",
+        secondName: "Lei"
+      },
+
+      methods: {
+        getFullName: function() {
+          console.log("方法被调用");
+          return this.secondName + ":" + this.firstName;
+        }
+      },
+      computed: {
+        fullName: function() {
+          console.log("计算属性被调用");
+          return this.secondName + ":" + this.firstName;
+        }
+      }
+    });
+  </script>
+</html>

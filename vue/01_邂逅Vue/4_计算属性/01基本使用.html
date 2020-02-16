@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <title>计算属性基本使用</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{firstName}} {{secondName}}</h2>
+      <h2>{{firstName}} {{secondName}}</h2>
+      <h2>{{getFullName()}}</h2>
+      <h2>{{fullName}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        firstName: "Tang",
+        secondName: "Lei"
+      },
+      //   计算属性，名称通常为名词
+      computed: {
+        fullName: function() {
+          return this.firstName + " " + this.secondName;
+        }
+      },
+      methods: {
+        getFullName: function() {
+          return this.firstName + " " + this.secondName;
+        }
+      }
+    });
+  </script>
+</html>

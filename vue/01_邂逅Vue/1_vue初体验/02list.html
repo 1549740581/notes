@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <title>列表</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <ul>
+        <!-- c-for进行遍历，也是因为id=div1的元素交由Vue管理，所以能够解析c-for -->
+        <li v-for="item in language">{{item}}</li>
+      </ul>
+    </div>
+  </body>
+
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        language: ["C", "C++", "Java", "Python"]
+      }
+    });
+  </script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <title>计数器</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>当前计数：{{counter}}</h2>
+      <!-- 如果只是操作简单变量可以之间这样写 -->
+      <!-- <button v-on:click="counter++">+</button>
+      <button v-on:click="counter--">-</button> -->
+
+      <!-- 操作比较复杂时，v-on:click=后面为函数名 -->
+      <!-- <button v-on:click="increment">+</button>
+      <button v-on:click="decrement">-</button> -->
+
+      <!-- v-on:click的语法糖表示：@click -->
+      <button @click="increment">+</button>
+      <button @click="decrement">-</button>
+    </div>
+  </body>
+  <script>
+    // proxy
+    const obj = {
+      counter: 0
+    };
+    const app = new Vue({
+      el: "#div1",
+      data: obj,
+      methods: {
+        increment() {
+          // 不推荐这样写
+          app.counter++;
+        },
+        decrement() {
+          this.counter--;
+        }
+      }
+    });
+  </script>
+</html>

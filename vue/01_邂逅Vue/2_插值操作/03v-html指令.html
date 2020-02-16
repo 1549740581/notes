@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <title>v-html指令</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{url}}</h2>
+      <h2 v-html="url"></h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        url: "<a href='www.baidu.com'>百度一下</a>"
+      }
+    });
+  </script>
+</html>

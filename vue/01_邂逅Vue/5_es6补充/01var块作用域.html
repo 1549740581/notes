@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <title>var块作用域</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <button>btn1</button>
+    <button>btn2</button>
+    <button>btn3</button>
+    <button>btn4</button>
+  </body>
+  <script>
+    //  var在for循环中没有块作用域，每个button的click中引用的都是同一i变量
+    // 当所有的click函数设置完毕后，i==aBtn.length，当点击任何button时
+    // 都会显示aBtn.length的值
+    var aBtn = document.getElementsByTagName("button");
+    // for (var i = 0; i < aBtn.length; ++i) {
+    //   aBtn[i].addEventListener("click", function() {
+    //     console.log("button: " + i + " clicked");
+    //   });
+    // }
+
+    // 使用闭包解决
+    // 因为函数有自己的块作用域
+    // for (var i = 0; i < aBtn.length; ++i) {
+    //   (function(i) {
+    //     aBtn[i].addEventListener("click", function() {
+    //       console.log("button: " + i + " clicked");
+    //     });
+    //   })(i);
+    // }
+
+    // 使用let解决
+    for (let i = 0; i < aBtn.length; ++i) {
+      aBtn[i].addEventListener("click", function() {
+        console.log("button: " + i + " clicked");
+      });
+    }
+  </script>
+</html>

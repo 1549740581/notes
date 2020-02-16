@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <title>hello vuejs</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <bod>
+    <!-- div1 交由vue实例管理，div2未交由vue实例管理 -->
+    <div id="div1">
+      <h1>{{name}}</h1>
+      <h2>{{message}}</h2>
+    </div>
+    <div id="div2">{{message}}</div>
+  </bod>
+  <script>
+    // es6使用let/const代替var
+    // 编程范式转换：命令式 -> 声明式 ---> 页面和数据完全分离，降低耦合度
+    const app = new Vue({
+      el: "#div1", // Vue实例挂载到哪个html元素上
+      data: {
+        // 通常存储一些数据，数据可以自定义，也可以来自网络，从服务器加载
+        message: "hello vuejs!",
+        name: "sherman"
+      }
+    });
+
+    // 命令式范式：原始js实现
+    // 1. 创建div元素，设置id属性
+    // 2. 定义一个message变量
+    // 3. 将message变量赋值给对应id的div元素进行显示
+  </script>
+</html>

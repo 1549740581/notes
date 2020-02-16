@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <title>v-once指令</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{message}}</h2>
+      <!-- 在浏览器的Console中设置：app.message="change"后，第一个message会改变，当前message不会改变 -->
+      <h2 v-once>{{message}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "msg"
+      }
+    });
+  </script>
+</html>

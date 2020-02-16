@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <title>作业</title>
+  <script src="../../js/vue.js"></script>
+  <style>
+    .click {
+      color: red;
+    }
+  </style>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <!-- 
+      四个li，初始情况下，第一个li颜色为红色，之后每次点击哪个li，
+      对应的li变成红色，其它li恢复原来颜色
+ -->
+  <body>
+    <div id="div1">
+      <ul>
+        <li
+          :class="{click: curIdx == idx}"
+          v-for="(item, idx) in movies"
+          @click="onLiClick(idx)"
+        >
+          {{idx}}-{{item}}
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        movies: ["大话西游", "新世界", "让子弹飞", "哪吒"],
+        curIdx: 0
+      },
+      methods: {
+        onLiClick: function(idx) {
+          this.curIdx = idx;
+        }
+      }
+    });
+  </script>
+</html>

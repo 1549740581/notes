@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <title>动态绑定class</title>
+  <script src="../../js/vue.js"></script>
+  <style>
+    .active {
+      color: red;
+    }
+  </style>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- 
+          1. class={...}接受的是一个对象，当对象以key-value形式存在，当value为true时，表示该class会加入到标签当中
+          2. class="title"这个class不是动态添加的，Vue会将它和其它动态添加的class合并
+          3. v-bind可以通过语法糖:进行简化
+      -->
+      <!-- <h2 class="title" :class="{active: isActive, line: isLine}">
+        {{message}}
+      </h2> -->
+
+      <!-- 使用函数 -->
+      <h2 class="title" :class="getClasses()">{{message}}</h2>
+      <button v-on:click="btnClick">change</button>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "hello",
+        isActive: true,
+        isLine: true
+      },
+      methods: {
+        btnClick: function() {
+          this.isActive = !this.isActive;
+        },
+        getClasses: function() {
+          return { active: this.isActive, line: this.isLine };
+        }
+      }
+    });
+  </script>
+</html>

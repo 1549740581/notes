@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <title>v-pre指令</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- 第一个输出：hello，第二个输出：{{message}} -->
+      <h2>{{message}}</h2>
+      <h2 v-pre>{{message}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "hello"
+      }
+    });
+  </script>
+</html>

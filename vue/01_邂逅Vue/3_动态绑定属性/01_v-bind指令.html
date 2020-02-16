@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <title>v-bind指令</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- <img v-bind:src="imgUrl" alt="" />
+      <a v-bind:href="aHref">百度一下</a> -->
+
+      <!-- v-bind语法糖形式 -->
+      <img :src="imgUrl" alt="" />
+      <a :href="aHref">百度一下</a>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        //   imgUrl和aHref两个数据通常从服务器请求得到
+        imgUrl:
+          "https://cn.vuejs.org/images/logo.png?_sw-precache=cf23526f451784ff137f161b8fe18d5a",
+        aHref: "https://www.baidu.com"
+      }
+    });
+  </script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <title>v-cloak指令</title>
+  <script src="../../js/vue.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2 v-cloak>{{message}}</h2>
+    </div>
+  </body>
+  <script>
+    // 延迟未加载的1s内，div含有v-cloak属性，被样式表设置为none
+    // 1s后，Vue开始加载解析，会删除div的v-vloak属性
+    setTimeout(function() {
+      const app = new Vue({
+        el: "#div1",
+        data: {
+          message: "hello"
+        }
+      });
+    }, 1000);
+  </script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <title>字面量的增强写法</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body></body>
+  <script>
+    const name = "sherman";
+    const age = 23;
+    const height = 1.76;
+
+    // es5字面量写法
+    const obj1 = {
+      name: name,
+      age: age,
+      height: height
+    };
+
+    // es6字面量的增强写法
+    const obj2 = {
+      name,
+      age,
+      height
+    };
+    console.log(obj1);
+    console.log(obj2);
+
+    // es6函数增强写法
+    const stu = {
+      study() {
+        console.log("study");
+      },
+      eat() {
+        console.log("eat");
+      }
+    };
+    stu.study();
+    stu.eat();
+  </script>
+</html>

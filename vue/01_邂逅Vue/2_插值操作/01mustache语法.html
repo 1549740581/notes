@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <title>Mustache语法</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{message}}</h2>
+      <h2>{{firstName + ":" + secondName}}</h2>
+      <h2>{{firstName}} {{secondName}}</h2>
+      <h2>{{age * 10}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "msg",
+        firstName: "Sherman",
+        secondName: "Tang",
+        age: 23
+      }
+    });
+  </script>
+</html>

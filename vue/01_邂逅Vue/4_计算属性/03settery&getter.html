@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <title>setter&getter</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2>{{fullName}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        firstName: "Tang",
+        secondName: "Lei"
+      },
+      computed: {
+        // 本质上fullName还是一个属性，但是有get和set方法
+        // 同时如果只有get方法的话，可以进行简写成函数形式，但是仍然是属性
+        // 因此{{fullName}}中不能加()
+        fullName: {
+          // 一般不开放set方法
+          set: function(newValue) {
+            let aName = newValue.split(" ");
+            this.firstName = aName[0];
+            this.secondName = aName[1];
+          },
+          get: function() {
+            return this.secondName + ":" + this.firstName;
+          }
+        }
+      }
+    });
+  </script>
+</html>
