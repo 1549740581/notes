@@ -18,6 +18,7 @@ public class Q07KthLargestElemInArray {
      * >>> partition
      * 1 2 5 6 8 7  idx = 2
      * 第4大元素为5，k = len - idx = 2
+     * >> 经过partition操作后返回的idx，arr[idx]代表第idx+1小元素，第(arr.length-idx)大元素
      */
     private int findKthLargest(int[] arr, int lo, int hi, int k) {
         int idx = partition(arr, lo, hi);
@@ -25,8 +26,8 @@ public class Q07KthLargestElemInArray {
          * k范围[1, arr.length]
          * idx范围[0, arr.length - 1]
          */
-        while (arr.length - k != idx) {
-            if (idx < arr.length - k) {
+        while (arr.length - idx != k) {
+            if (k < arr.length - idx) {
                 idx = partition(arr, idx + 1, hi);
             } else {
                 idx = partition(arr, lo, idx - 1);
@@ -38,7 +39,7 @@ public class Q07KthLargestElemInArray {
 
     private int partition(int[] arr, int lo, int hi) {
         // shuffle is needed
-        int rnd = new Random().nextInt((hi - lo + 1)) + lo;
+        int rnd = new Random().nextInt(hi - lo + 1) + lo;
         swap(arr, rnd, hi);
         int pivot = arr[hi];
         int idx = lo;
