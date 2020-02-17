@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <title>v-on参数问题</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- 当函数没有参数时，()可以加也可以不加 -->
+      <button @click="func1()">btn1</button>
+      <button @click="func1">btn2</button>
+      <!-- 当函数有一个参数，但是调用时并没有传递参数，默认会将屏幕原生事件event传递过去 -->
+      <button @click="func2">btn3</button>
+      <!-- 当需要同时传递屏幕原生事件和自定义参数时，使用$event表示屏幕原生自定义事件 -->
+      <button @click="func3(1, $event)">btn4</button>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {},
+      methods: {
+        func1() {
+          console.log("func1");
+        },
+        func2(event) {
+          console.log("++++++++", event);
+        },
+        func3(args, event) {
+          console.log("++++++++", args, event);
+        }
+      }
+    });
+  </script>
+</html>

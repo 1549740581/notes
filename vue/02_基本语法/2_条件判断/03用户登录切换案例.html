@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <title>用户登录切换案例</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <span v-if="isUserLogin">
+        <label for="username">用户登录</label>
+        <!-- 注意key属性，当两个input的key不相同是，VDOM就不会进行复用 -->
+        <input type="text" placeholder="用户名" id="username" key="username" />
+      </span>
+
+      <span v-else>
+        <label for="email">邮箱登录</label>
+        <input type="text" placeholder="邮箱" id="email" key="email" />
+      </span>
+      <button @click="isUserLogin=!isUserLogin">切换登录类型</button>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        isUserLogin: true
+      }
+    });
+  </script>
+</html>

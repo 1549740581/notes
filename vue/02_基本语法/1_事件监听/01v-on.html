@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <title>v-on语法</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      {{counter}}
+      <button @click="increment">+</button>
+      <button @click="decrement">-</button>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        counter: 0
+      },
+      methods: {
+        increment() {
+          this.counter++;
+        },
+        decrement() {
+          this.counter--;
+        }
+      }
+    });
+  </script>
+</html>

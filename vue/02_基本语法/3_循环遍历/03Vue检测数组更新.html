@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <title>Vue检测数组更新</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <ul>
+        <li v-for="item in arr">{{item}}</li>
+      </ul>
+      <button @click="change">change</button>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        arr: ["a", "b", "c", "d"]
+      },
+      methods: {
+        change() {
+          this.arr[0] = "change";
+          //   this.arr.splice(0, 1, "change");
+          //   Vue.set(this.arr, 0, "change");
+        }
+      }
+    });
+  </script>
+</html>

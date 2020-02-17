@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <title>v-else-if</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2 v-if="score >= 90">优秀</h2>
+      <h2 v-else-if="score >= 80">良好</h2>
+      <h2 v-else-if="score >= 60">及格</h2>
+      <h2 v-else>不及格</h2>
+
+      <!-- 推荐使用计算属性 -->
+      <h1>{{result}}</h1>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        score: 99
+      },
+      computed: {
+        result() {
+          let result = "";
+          if (this.score >= 90) {
+            result = "优秀";
+          } else if (this.score >= 80) {
+            result = "良好";
+          } else if (this.score >= 60) {
+            result = "及格";
+          } else {
+            result = "不及格";
+          }
+          return result;
+        }
+      }
+    });
+  </script>
+</html>

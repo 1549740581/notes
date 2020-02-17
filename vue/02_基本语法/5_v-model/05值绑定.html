@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <title>值绑定</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- 在label标签上进行循环 -->
+      <label v-for="hobby in hobbiesFromDB" :for="hobby">
+        <input
+          type="checkbox"
+          :value="hobby"
+          :id="hobby"
+          v-model="hobbies"
+        />{{hobby}}
+      </label>
+      <h2>您选择的爱好是：{{hobbies}}</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        hobbies: [],
+        // 假设这些值是从服务器（或者DB）获取
+        hobbiesFromDB: ["吃", "喝", "睡", "玩", "code"]
+      }
+    });
+  </script>
+</html>

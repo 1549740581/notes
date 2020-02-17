@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <title>v-show</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2 v-if="isShow" id="vif">isShow</h2>
+      <h2 v-show="isShow" id="vshow">isShow</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        isShow: true
+      }
+    });
+  </script>
+</html>

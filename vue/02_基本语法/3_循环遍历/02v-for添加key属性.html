@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <title>v-for添加key属性</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <ul>
+        <!-- 添加key属性 -->
+        <li v-for="(name, idx) in names" :key="name">{{idx+1}}: {{name}}</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        names: ["sherman", "wqy", "tl", "gantlei"]
+      }
+    });
+  </script>
+</html>

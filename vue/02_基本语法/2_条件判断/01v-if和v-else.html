@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <title>v-if和v-else</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <h2 v-if="flag">v-if</h2>
+      <h2 v-else>v-else</h2>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        flag: true
+      }
+    });
+  </script>
+</html>

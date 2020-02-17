@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <title>v-on修饰符</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1" @click="divClick">
+      <!-- stop修饰符防止：事件冒泡 -->
+      msg <button @click.stop="btnClick">stop</button>
+
+      <!-- prevent修饰符阻止默认的行为，例如submit默认点击就会进行提交 -->
+      <form action="foo url">
+        <input type="submit" value="提交" @click.prevent.stop="formClick" />
+      </form>
+
+      <!-- 键盘监听，需要keyCoder或者keyAlias -->
+      <input type="text" @keyup.enter="textKeyUp" />
+
+      <!-- once修饰符表明只能监听一次，注意第二次之后，stop属性并不能阻止事件冒泡 -->
+      <button @click.once.stop="btnOnceClick">once</button>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {},
+      methods: {
+        divClick() {
+          console.log("div click");
+        },
+        btnClick() {
+          console.log("stop");
+        },
+        formClick() {
+          // 手动提交，并且会阻止submit默认的提交行为，可以在这里自定义数据处理逻辑
+          console.l, og("prevent");
+        },
+        textKeyUp() {
+          console.log("enter");
+        },
+        btnOnceClick() {
+          console.log("once");
+        }
+      }
+    });
+  </script>
+</html>

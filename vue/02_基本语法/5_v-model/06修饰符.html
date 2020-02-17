@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <title>v-model修饰符</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <input type="text" v-model.lazy="msg" />{{msg}}
+      <br />
+      <input type="text" v-model.number="foo" />{{foo}}-{{typeof foo}}
+      <br />
+      <input type="text" v-model.trim="bar" />#{{bar}}#
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        msg: "msg",
+        foo: "foo",
+        bar: "bar"
+      }
+    });
+  </script>
+</html>

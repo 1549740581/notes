@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <title>v-model基本使用</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- <input v-model="message">
+            {{message}}
+        </input> -->
+
+      <!-- v-model等同于以下两个操作 -->
+      <input @input="message=$event.target.value" :value="message" />
+      {{message}}
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        message: "sherman"
+      }
+    });
+  </script>
+</html>
