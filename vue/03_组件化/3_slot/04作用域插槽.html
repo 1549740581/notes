@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <title>作用域插槽</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <!-- 使用<slot>将默认显示方式包起来，将pLang绑定到data上，用于传递数据 -->
+      <slot :data="pLang">
+        <div>
+          <ul>
+            <!-- 默认是使用<li>进行显示 -->
+            <li v-for="item in pLang">{{item}}</li>
+          </ul>
+        </div>
+      </slot>
+    </template>
+    <div id="div1">
+      <cpn></cpn>
+      <!-- 自定义显示样式 -->
+      <cpn>
+        <template slot-scope="slot">
+          <div>
+            {{slot.data.join(" * ")}}
+          </div>
+        </template>
+      </cpn>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#div1",
+        data: {
+          message: ""
+        },
+        components: {
+          cpn: {
+            template: "#t-cpn",
+            data() {
+              return {
+                pLang: ["C", "C++", "Python", "Java", "JS"]
+              };
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <title>驼峰命名问题</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div>
+        <h2>{{cFooBarInfo}}</h2>
+      </div>
+    </template>
+    <div id="div1">
+      <!-- v-bind不支持驼峰绑定，会出现空值 -->
+      <!-- <cpn :cFooBarInfo="fooBarInfo"></cpn> -->
+
+      <cpn :c-foo-bar-info="fooBarInfo"></cpn>
+    </div>
+  </body>
+  <script>
+    const cpn = {
+      template: "#t-cpn",
+      props: {
+        cFooBarInfo: {
+          type: Object,
+          default() {
+            return {};
+          }
+        }
+      }
+    };
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        fooBarInfo: {
+          name: "foo",
+          msg: "bar",
+          ext: "foo-bar-info"
+        }
+      },
+      components: {
+        cpn
+      }
+    });
+  </script>
+</html>

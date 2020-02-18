@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <title>案例-watch替代方案</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div>
+        <h2>props-cnum1：{{cnum1}}</h2>
+        <h2>data-dnum1：{{dnum1}}</h2>
+        <!-- <input v-model="dnum1" /> -->
+
+        <!-- 在input时间内发射自定义事件，通知父组件input内部的值已经修改 -->
+        <input :value="dnum1" @input="num1Change" />
+
+        <h2>props-cnum2：{{cnum2}}</h2>
+        <h2>data-dnum2：{{dnum2}}</h2>
+        <!-- <input v-model="dnum2" /> -->
+        <input :value="dnum2" @input="num2Change" />
+      </div>
+    </template>
+    <div id="div1">
+      <!-- 父组件监听字符键发射的自定义组件 -->
+      <cpn
+        :cnum1="num1"
+        :cnum2="num2"
+        @num1-change="num1ChangeCallback"
+        @num2-change="num2ChangeCallback"
+      ></cpn>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const cpn = {
+        template: "#t-cpn",
+        // 子组件的data，<input>标签应该绑定data，而不是绑定props
+        data() {
+          return {
+            dnum1: this.cnum1,
+            dnum2: this.cnum2
+          };
+        },
+        // 父组件的num传递给子组件cnum
+        props: {
+          cnum1: Number,
+          cnum2: Number
+        },
+        methods: {
+          num1Change(event) {
+            console.log("---------------");
+            this.dnum1 = event.target.value;
+            this.dnum2 = this.dnum1 * 100; //
+            this.$emit("num1-change", this.dnum1);
+          },
+          num2Change(event) {
+            console.log("+++++++++++++++");
+            this.dnum2 = event.target.value;
+            this.dnum1 = this.dnum2 / 100; //
+            this.$emit("num2-change", this.dnum2);
+          }
+        }
+        // ,
+        // watch: {
+        //   dnum1(newValue) {
+        //     this.dnum2 = newValue * 100;
+        //     this.$emit("num2-change", this.dnum2);
+        //   },
+        //   dnum2(newValue) {
+        //     this.dnum1 = newValue / 100;
+        //     this.$emit("num1-change", this.dnum1);
+        //   }
+        // }
+      };
+      const app = new Vue({
+        el: "#div1",
+        data: {
+          num1: 1,
+          num2: 2
+        },
+        components: {
+          cpn
+        },
+        methods: {
+          // 父组件回调并修改this.num1的值，this.num1的值会通过props传递给子组件，和赋值给data数据
+          num1ChangeCallback(value) {
+            this.num1 = parseInt(value);
+          },
+          num2ChangeCallback(value) {
+            this.num2 = parseInt(value);
+          }
+        },
+        watch: {
+          num1(newValue) {
+            this.num2 = newValue * 100;
+          },
+          num2(newValue) {
+            this.num1 = newValue / 100;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

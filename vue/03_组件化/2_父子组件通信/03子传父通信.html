@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <title>子组件发射事件给父组件</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div>
+        <!-- 1. 子组件监听相应事件，并准备在即将发生的事件内（例如click事件）发射自定义事件 -->
+        <button v-for="item in categories" @click="btnClick(item)">
+          {{item.msg}}
+        </button>
+      </div>
+    </template>
+
+    <div id="div1">
+      <!-- 3. 父组件监听子组件发射的自定义事件：btn-click-emit，并进行回调 -->
+      <cpn @btn-click-emit="btnClickCallback"></cpn>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const cpn = {
+        template: "#t-cpn",
+        data() {
+          return {
+            categories: [
+              { id: "1111", msg: "数码3C" },
+              { id: "1112", msg: "家用办公" },
+              { id: "1113", msg: "饮料酒水" }
+            ]
+          };
+        },
+        methods: {
+          // 2. 子组件发射自定义事件：事件名称，事件参数
+          btnClick(item) {
+            this.$emit("btn-click-emit", item);
+          }
+        }
+      };
+
+      const app = new Vue({
+        el: "#div1",
+        data: {},
+        components: {
+          cpn
+        },
+        methods: {
+          // 4. 父组件进行回调处理
+          btnClickCallback(item) {
+            console.log(item);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

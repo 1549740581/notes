@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <title>slot基本使用</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div>
+        <h2>title</h2>
+        <p>自定义组件模板</p>
+        <!-- 默认slot为<button> -->
+        <slot><button>默认slot</button></slot>
+      </div>
+    </template>
+
+    <div id="div1">
+      <!-- 使用<span>替代slot -->
+      <cpn><span>span</span></cpn>
+
+      <!-- 单个slot中包含多个元素，会全部替换 -->
+      <cpn>
+        <div>
+          <span>1.span</span>
+          <button>2.button</button>
+          <p>3.p</p>
+        </div>
+      </cpn>
+
+      <!-- 不提供slot会使用默认值 -->
+      <cpn></cpn>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#div1",
+        components: {
+          cpn: {
+            template: "#t-cpn"
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <title>$parent和$root</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div>
+        <button @click="btnClick">点击</button>
+      </div>
+    </template>
+
+    <div id="div1">
+      <cpn></cpn>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#div1",
+        data: {
+          message: "msg",
+          foo: "bar"
+        },
+        components: {
+          cpn: {
+            template: "#t-cpn",
+            methods: {
+              btnClick() {
+                //  获取父组件和根组件
+                console.log(this.$parent.message);
+                console.log(this.$root.foo);
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

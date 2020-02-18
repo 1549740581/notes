@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <title>template分离</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <div id="div1">
+      <cpn1></cpn1>
+      <cpn2></cpn2>
+    </div>
+
+    <template id="cpn2">
+      <div>
+        <h1>template分离方式二</h1>
+      </div>
+    </template>
+  </body>
+
+  <script type="text/x-template" id="cpn1">
+    <div>
+        <h1>template分离方式一</h1>
+    </div>
+  </script>
+  <script>
+    const app = new Vue({
+      el: "#div1",
+      components: {
+        cpn1: {
+          template: "#cpn1"
+        },
+        cpn2: {
+          template: "#cpn2"
+        }
+      }
+    });
+  </script>
+</html>

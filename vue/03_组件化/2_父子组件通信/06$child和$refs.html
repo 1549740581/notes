@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <title>$child和$refs</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div></div>
+    </template>
+    <div id="div1">
+      <cpn ref="ref1"></cpn>
+      <cpn ref="ref2"></cpn>
+      <button @click="btnClick">点击</button>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#div1",
+        components: {
+          cpn: {
+            template: "#t-cpn",
+            data() {
+              return {
+                name: "sherman",
+                age: 23
+              };
+            },
+            methods: {
+              childFun() {
+                console.log("child function");
+              }
+            }
+          }
+        },
+        methods: {
+          btnClick() {
+            // console.log(this.$children[0].name);
+            // this.$children[1].childFun();
+
+            // 推荐使用$refs方式
+            console.log(this.$refs.ref1.name);
+            this.$refs.ref2.childFun();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

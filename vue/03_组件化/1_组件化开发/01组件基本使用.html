@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <title>组件基本使用</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- 3. 使用组件 -->
+      <cpn></cpn>
+      <cpn></cpn>
+      <!-- 也可以嵌套使用 -->
+      <div>
+        <cpn></cpn>
+      </div>
+    </div>
+  </body>
+  <script>
+    // 1. 创建组件构造器
+    const cpnCtor = Vue.extend({
+      template: `
+          <div>
+            <h1>我是标题</h1>
+            <p>我是内容------------</p>
+            <p>我是内容++++++++++++</p>
+          </div>
+          `
+    });
+    // 2. 注册组件
+    Vue.component("cpn", cpnCtor);
+    const app = new Vue({
+      el: "#div1",
+      data: {}
+    });
+  </script>
+</html>

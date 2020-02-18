@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <title>父子组件</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <!-- son组件和fater组件平级，然后fater组件内部又包含一个son组件 -->
+      <fathercpn></fathercpn>
+      <soncpn></soncpn>
+    </div>
+  </body>
+  <script>
+    // 定义子组件构造器
+    const cpnCtorSon = Vue.extend({
+      template: `
+        <div>
+            <h1>Son</h1>
+        </div>
+          `
+    });
+
+    // 定义父组件构造器
+    const cpnCtorFather = Vue.extend({
+      template: `
+            <div>
+                <h1>Father</h1>
+                <!-- 使用子组件 -->
+                <soncpn></soncpn>
+            </div>
+        `,
+      // 注册子组件
+      components: {
+        soncpn: cpnCtorSon
+      }
+    });
+    const app = new Vue({
+      el: "#div1",
+      components: {
+        fathercpn: cpnCtorFather,
+        // 仍然可以在这里对子组件进行注册
+        soncpn: cpnCtorSon
+      }
+    });
+  </script>
+</html>

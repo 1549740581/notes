@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <title>全局组件&局部组件</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div id="div1">
+      <cpnglobal></cpnglobal>
+      <!-- cpnlocal在div2中注册，不能在div1中使用，报错 -->
+      <cpnlocal></cpnlocal>
+    </div>
+
+    -----------------------------------
+    <!-- 全局组件在多个Vue实例下都可以使用 -->
+    <div id="div2">
+      <cpnglobal></cpnglobal>
+      <cpnlocal></cpnlocal>
+    </div>
+  </body>
+  <script>
+    //   创建局部组件构造器
+    const cpnCtorLocal = Vue.extend({
+      template: `
+          <div>
+            <h1>title-local</h1>
+            <p>content</p>
+          </div>
+          `
+    });
+
+    // 创建全局组件构造器
+    const cpnCtorGlobal = Vue.extend({
+      template: `
+        <div>
+            <h1>title-gobal></h1>
+            <p>content</p>
+        </div>
+        `
+    });
+
+    // 注册全局组件
+    Vue.component("cpnglobal", cpnCtorGlobal);
+    const app1 = new Vue({
+      el: "#div1"
+    });
+
+    const app2 = new Vue({
+      el: "#div2",
+      components: {
+        cpnlocal: cpnCtorLocal
+      }
+    });
+  </script>
+</html>

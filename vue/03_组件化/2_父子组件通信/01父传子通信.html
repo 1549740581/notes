@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <title>父组件props子组件</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t_cpn">
+      <div>
+        <p>子组件获取父组件数据</p>
+        <h2>获取Vue实例的Message数据：{{cmessage}}</h2>
+        <h2>获取Vue实例的Movies数据：{{cmovies}}</h2>
+        <h2>获取Vue实例的Ext数据：{{cext}}</h2>
+      </div>
+    </template>
+
+    <div id="div1">
+      <!-- 通过v-bind，将子组件的cmovies和cmessage和父组件进行绑定 -->
+      <!-- 如果不是用v-bind，cmovies和cmessage直接绑定字符串"movies", "message" -->
+      <cpn v-bind:cmovies="movies" :cmessage="message" :cext="ext"></cpn>
+    </div>
+  </body>
+  <script>
+    cpn = {
+      template: "#t_cpn",
+      // props使用数组，数组每个元素是字符串，但是其实是变量
+      // props: ["cmovies", "cmessage"]
+
+      // props使用对象更好，可以限制类型、提供默认值以及设置是否必须
+      props: {
+        cmessage: {
+          type: String,
+          default: "",
+          require: true
+        },
+        cmovies: {
+          type: Array,
+          default() {
+            return [];
+          },
+          require: false
+        },
+        cext: {
+          validator(value) {
+            return ["success", "fail", "danger"].indexOf(value) != -1;
+          }
+        }
+      }
+    };
+    const app = new Vue({
+      el: "#div1",
+      data: {
+        // 需要传递给子组件的数据
+        message: "message",
+        movies: ["aaaa", "bbbb", "cccc", "dddd"],
+        // invalid
+        // ext: "foo"
+
+        ext: "success"
+      },
+      // es6语法
+      components: {
+        cpn
+      }
+    });
+  </script>
+</html>

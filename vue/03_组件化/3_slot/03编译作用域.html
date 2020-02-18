@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <title>编译作用域</title>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="t-cpn">
+      <div>
+        <h2>title</h2>
+        <p>content</p>
+        <!-- button会去子组件中查找isShow的值 -->
+        <!-- <button v-show="isShow">按钮</button> -->
+      </div>
+    </template>
+
+    <div id="div1">
+      <!-- isShow会去Vue实例下查找isShow的值 -->
+      <cpn v-show="isShow"></cpn>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#div1",
+        data: {
+          isShow: true
+        },
+        components: {
+          cpn: {
+            template: "#t-cpn"
+          },
+          data() {
+            return {
+              isShow: false
+            };
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

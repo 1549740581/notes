@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <title>组件data必须是函数</title>
+  <script src="../../js/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template id="cpn1">
+      <div>
+        <button @click="decrement">-</button>
+        <span>{{counter}}</span>
+        <button @click="increment">+</button>
+      </div>
+    </template>
+    <div id="div1">
+      <cpn></cpn>
+      <cpn></cpn>
+      <cpn></cpn>
+    </div>
+  </body>
+  <script>
+    const obj = {
+      counter: 0
+    };
+    const app = new Vue({
+      el: "#div1",
+      components: {
+        cpn: {
+          template: "#cpn1",
+          data() {
+            // return {
+            //   counter: 0
+            // };
+
+            // 返回obj相当于data返回的是对象，共享内存，浅拷贝，相互影响
+            return obj;
+          },
+          methods: {
+            decrement() {
+              this.counter--;
+            },
+            increment() {
+              this.counter++;
+            }
+          }
+        }
+      }
+    });
+  </script>
+</html>
