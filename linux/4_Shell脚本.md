@@ -67,7 +67,7 @@ export TOMCAT_HOME=/opt/open_source/apache-tomcat-8.5.49
 
 - $n：n表示数字，$0表示命令本身，$1表示第一个参数（100），$2表示第二个参数（200），注意如果n>=10，需要使用大括号，例如${10}
 - $*：命令行中所有参数，注意它是把这些参数看成一个整体，在使用""的for循环中有体现
-- $@：命令行中所有参数，注意它十把每个参数区分对待，在使用""的for循环中有体现
+- $@：命令行中所有参数，注意它是把每个参数区分对待，在使用""的for循环中有体现
 - $#：命令行中参数的个数，不包括命令本身
 ```shell
 #!/bin/bash
@@ -305,7 +305,7 @@ echo $val
 
 ### 1.6 函数
 Shell和其它语言一样也有函数的概念，有系统函数和自定义函数：
-- 系统函数：这里只介绍啷个：basename & dirname
+- 系统函数：basename & dirname
     - basename path \[suffix]：例如basename /home/sherman/tmp/foo.sh .sh -> foo
     - dirname path：例如dir /home/sherman/tmp/foo.sh -> /home/sherman/tmp
     - 总之：dirname path + / + basename path + suffix 拼接为 path

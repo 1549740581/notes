@@ -22,7 +22,7 @@ VMware -> 虚拟机 -> 设置 -> 选项 -> 共享文件夹：
 
 ### 1.3 Linux的目录结构
  Linux采用层级式的树状目录结构，根目录是"/"，在Linux里，**一切皆文件**。
- 
+
  具体的目录结构：
  - /bin（/usr/bin、/usr/local/bin）：binary缩写，存放最经常使用的命令
  - /home：存放普通用户的主目录，Linux中每个用户都有自己的一个目录，目录名即为用户名
@@ -43,19 +43,17 @@ VMware -> 虚拟机 -> 设置 -> 选项 -> 共享文件夹：
  - /usr/local：给主机额外安装软件所安装的木兰路，一般是通过编译源码方式安装的程序
  - /var：存放不断扩充的东西（日志），习惯将经常被修改的日志放在这个目录中
  - /selinux：security-enhanced linux，是一种安全子系统，能控制程序只能访问特定文件
- 
+
 ### 1.4 Xshell & Xftp
 **Xshell**:
 
-要使用Xshell进行远程登录，Linux虚拟机必须开启**sshd.service**服务，即Xshell使用ssh协议监听22端口，可以使用
-**setup**工具开启该服务：
+要使用Xshell进行远程登录，Linux虚拟机必须开启**sshd.service**服务，即Xshell使用ssh协议监听22端口，可以使用**setup**工具开启该服务：
 
 ![](imgs/sshd.png)
 
 **Xftp**:
 
-Xftp支持ftp协议和sftp协议，但是Linux的默认是不提供FTP的，需要额外安装FTP服务器，会占用一定的VPS服务器资源。
-sftp协议是ssh协议的一部分，它本身没有单独的守护进程，必须依赖sshd守护进程（即ssd.service，端口号为22）：
+Xftp支持ftp协议和sftp协议，但是Linux的默认是不提供FTP的，需要额外安装FTP服务器，会占用一定的VPS服务器资源。sftp协议是ssh协议的一部分，它本身没有单独的守护进程，必须依赖sshd守护进程（即ssd.service，端口号为22）：
 
 ![](imgs/xftp.png)
 
@@ -73,8 +71,8 @@ sftp协议是ssh协议的一部分，它本身没有单独的守护进程，必�
 - 黏贴：p
 - 撤销：u
 - 替换：r
-- 显示/取消行号：:set nu  :set nonu
-- 高亮匹配：:set hls
+- 显示/取消行号：:set nu/nonu
+- （非）高亮匹配：:set hls/nohls
 - 查找：/word  n -> 向上查找下一个 N -> 向上查找下一个
 - 移动：
     - w：向后移动一个单词
@@ -103,22 +101,16 @@ sftp协议是ssh协议的一部分，它本身没有单独的守护进程，必�
 注销：注意注销指令 **logout** 在图形运行级别下无效，在 **运行级别3** 下有效
 
 ### 1.7 用户管理
-Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，
-然后以这个账号的身份进入系统。Linux中的用户至少需要属于一个组。
+Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。Linux中的用户至少需要属于一个组。
 
-**添加用户**:
-```shell
-# useradd username [-d /home/username]
-```
-注意：
-- 添加一个新用户，会将该用户放入到用户名同名的group中
+**添加用户**：`useradd username [-d /home/username]`
+
+-   添加一个新用户，会将该用户放入到用户名同名的group中
+
 - 如果不指定新用户的家目录，默认会创建一个和用户名相同的家目录，在/home下
 - 可以使用-d参数指定用户的家目录
 
-**指定、修改密码**：
-```
-# passwd username
-```
+**指定、修改密码**：`passwd username`
 
 **删除用户**
 ```shell
@@ -130,10 +122,7 @@ Linux系统是一个多用户多任务的操作系统，任何一个要使用系
 ```
 注意：实际开发中，删除用户即可，不要删除用户的家目录
 
-**查询用户信息**：
-```shell
-# id username
-```
+**查询用户信息**：`id username`
 
 ![](imgs/id.png)
 
@@ -141,33 +130,28 @@ Linux系统是一个多用户多任务的操作系统，任何一个要使用系
 - 从高权限切换到低权限用户时，必须要密码验证，反之则需要
 - 如果需要返回原来的用户，使用**exit**指令或者ctrl+d
 
-切换用户语法：
-```shell
-# su - username
-```
+切换用户语法：`su username`
 
-**查询当前用户**：
-```shell
-# whoami
-# who am i
-```
+**查询当前用户**：`whoami 或者who am i`
 
 **用户组**：
 用户组类似于角色，系统够可以对有共性的多个用户进行统一管理。
 ```shell
 # 创建组
-# groupadd group_name
+groupadd group_name
+
 # 删除组
-# groupdel group_name
+groupdel group_name
+
 # 在创建用户时直接指定用户组
-# useradd -g group_name username
+useradd -g group_name username
+
 # 修改某个用户所属的用户组
-# usermod -g group_name username
+usermod -g group_name username
 ```
 
-*注意*：
+*注意*：当要删除某个组时，但是该组是某个用户的主组时，直接使用删除会报错：
 
-当要删除某个组时，但是改组存在某个用户的主组时该待删除的组时，直接使用**groupdel group_name**会出错：
 ```properties
 # 此时tl用户的主组是wd
 [root@localhost sherman]# groupdel wd
@@ -178,8 +162,9 @@ groupdel: cannot remove the primary group of user 'tl'
 ```shell
 # 修改用户tl的主组为tl
 usermod -g tl tl
+
 # 然后删除wd组
-# groupdel wd
+groupdel wd
 
 # 注意，-g 和 -G两个参数的区别；
 # -g：修改用户的主组，即该用户所属组的数量没有变化
@@ -190,22 +175,22 @@ usermod -g tl tl
 - /etc/passwd：用户的配置文件，记录用户的各种信息:
 ```shell
 # 用户名:口令:用户id:组id:注释:家目录:登录Shell
-# sherman:x:1000:1000:sherman:/home/sherman:/bin/bash
+sherman:x:1000:1000:sherman:/home/sherman:/bin/bash
 ```
 - /etc/shadow：口令配置文件，都是加密的：
 ```shell
 # 用户名:口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志
-# sherman:$6$BIy099lmLGVut3Z0$Q9U0feqtGDCqe1cysEzymHgQRylDxIxupP4htsexQN0lvxvyk4apoljbtUi9ECfu5lYRKYF.bTxkvzNGKgElI0::0:99999:7:::
+sherman:$6$BIy099lmLGVut3Z0$Q9U0feqtGDCqe1cysEzymHgQRylDxIxupP4htsexQN0lvxvyk4apoljbtUi9ECfu5lYRKYF.bTxkvzNGKgElI0::0:99999:7:::
 ```
 - /etc/group：组相关配置文件，记录Linux包含的组信息
 ```shell
 # 组名:口令:组id:组内用户列表（一般看不到）
-# wd:x:1002:
+wd:x:1002:
 ```
 
 ### 1.8 实用指令
-**用户级别**：
-用户级别类似于Windows中普通模式和安全模式，基本的运行级别：
+**用户级别**：用户级别类似于Windows中普通模式和安全模式，基本的运行级别：
+
 - 0：关机
 - 1：单用户、无网络，用于找回丢失密码
 - 2：多用户、无网络服务
@@ -226,38 +211,38 @@ init run_level
 
 centos7中运行级别有一定变化，相关命令是一个软连接，输入：
 ```shell
-# ll /usr/lib/systemd/system/*.target
+ll /usr/lib/systemd/system/*.target
+
 # ubuntu下查找相应信息：
-# ll /lib/systemd/system/*.target
+ll /lib/systemd/system/*.target
 ```
 ![](imgs/sl_run_level.png)
 
 从上图可以看出，软连接的详细情况，要设置默认运行级别：
 ```shell
-# systemctl set-default runlevel3.target
-# systemctl set-default multi-user.target
+systemctl set-default runlevel3.target
+systemctl set-default multi-user.target
 ```
 
-使用**运行级别1**解决root密码忘记问题：在系统引导时候，进入单用户、无网络级别，此时就是用
-root账户登录的。因此，可以直接使用**passwd root**修改密码。
+使用**运行级别1**解决root密码忘记问题：在系统引导时候，进入单用户、无网络级别，此时就是用root账户登录的。因此，可以直接使用**passwd root**修改密码。centos7中演示：
 
-centos7中演示：
-引导界面键入：e，找到**ro**
+-   引导界面键入：e，找到**ro**
 
 ![](imgs/rescue_1.png)
 
-将 **ro** 修改成：**/sysroot/bin/sh**
+-   将 **ro** 修改成：**/sysroot/bin/sh**
 
 ![](imgs/rescue_2.png)
 
-ctrl+x启动，会以run level 1进入系统，修改root密码即可：
+-   ctrl+x启动，会以run level 1进入系统，修改root密码即可：
+
 ```shell
-# chroot /sysroot
-# passwd root
-# LANG=en # 如果是中文系统，建议设置一下
-# touch /.autorelabel # 这个动作不能少
-# exit
-# reboot
+>> chroot /sysroot
+>> passwd root
+>> LANG=en # 如果是中文系统，建议设置一下
+>> touch /.autorelabel # 这个动作不能少
+>> exit
+>> reboot
 ```
 
 **帮助文档**：
@@ -278,16 +263,18 @@ ctrl+x启动，会以run level 1进入系统，修改root密码即可：
     - cd ..：返回上一级目录
     - cd -：返回上一次所在目录，由环境变量**OLDPWD**设置, echo $OLDPWD
     
+
 **创建和删除目录**：
 - mkdir /dir：创建单级目录：
 - mkdir -p /dir1/dir2/dir3：创建多级目录
 - rmdir /dir：删除空目录
-- rmdir -rfv /dir：删除非空目录， -r: recursive -f: force -v: verbose
+- rmdir -rfv /dir：删除非空目录， `-r: recursive -f: force -v: verbose`
 
 **创建、复制文件**：
+
 - touch file1 \[file2]：创建文件file1...
 - cp \[-rvf] src dst：将src文件或文件夹copy到dsc，-r：recursive -f：force -v：verbose
-- \cp \[选项]src dst：强制覆盖，相当于cp -f src dst
+- cp \[选项]src dst：强制覆盖，相当于cp -f src dst
 
 **删除和移动**：
 - rm \[-rfv] src：删除文件或文件夹，-r: recursive -f: force -v: verbose
@@ -306,8 +293,7 @@ cat -n file | more
     - ctrl+b：向上滚动一屏
     - =：显示当前行号
     - :f：显示文件名和当前行号
-- less file：取自"less is more"，功能类似于more，但是并不是一次性将整个文件加载后显示，而是根据需要再加载，
-效率较高，对于大型日志文件推荐使用的方式。
+- less file：取自"less is more"，功能类似于more，但是并不是一次性将整个文件加载后显示，而是根据需要再加载，效率较高，对于大型日志文件推荐使用的方式。
 
 **重定向和追加**：
 - \>：重定向，注意会覆盖
@@ -316,6 +302,7 @@ cat -n file | more
     - cat file1.txt > file2.txt：将file1.txt内容写入到file2.txt中，覆盖模式
     - echo "hello world" >> file.txt：在file.txt中追加hello world字符串
     
+
 **输出指令**：
 - echo：输出内容（环境变量）到控制台:
     - echo $PATH $PWD $HISTSIZE
@@ -330,9 +317,9 @@ cat -n file | more
 软连接相当于Windows中的快捷方式：
 - ln -s /usr/python python-copy：给python一个软连接**python-copy**，之后直接执行**./python-copy**就可以打开python终端
 ```shell
-# ll python-copy
-# lrwxrwxrwx. 1 root root 11 Dec  5 20:18 python-copy -> /bin/python
-# rm -rf python-copy # 删除软链接，注意删除软链接时候，比较在最后加入/，例如，rm -rf python-copy/
+>> ll python-copy
+lrwxrwxrwx. 1 root root 11 Dec  5 20:18 python-copy -> /bin/python
+>> rm -rf python-copy # 删除软链接，注意删除软链接时候，比较在最后加入/，例如，rm -rf python-copy/
 ```
 - 注意：当使用pwd查看目录时候，如果有软链接存在，显示的还是软链接所在的目录，而不是软链接实际所指的目录
 - history：查看已经执行过的历史命令
@@ -355,9 +342,8 @@ cat -n file | more
     - find / -size +20M|-20M|20M：在整个系统中查找大小大于|小于|等于20M的文件
     - find ./ -mtime +10：当前路径下查找，文件的更改时间超过10天的文件
     - find ./ -amin +10：当前路径下查找，文件的更改时间超过10分钟的文件
-- locate：locate指令用于文件查找，且速度较快，因为他事件建立好了一个包含所有档案名称和路径的数据库，
-之后的查询都是在该数据库上进行的，但是它的查询并不是实时的，使用前需要使用**updatedb**更新。
-    - locate -n 5 apache：查找带有apache的目录
+- locate：locate指令用于文件查找，且速度较快，因为它事先建立好了一个包含所有档案名称和路径的数据库，之后的查询都是在该数据库上进行的，但是它的查询并不是实时的，使用前需要使用**updatedb**更新。
+  - locate -n 5 apache：查找带有apache的目录
     - locate -r ^/opt | grep .so$ > result.txt：查找以/opt开头且.so结尾的文件，保存到result.txt中
     - locate -i /HTTP -c：查找包含/HTTP的目录，忽略大小写，统计最终的数量
 - grep：过滤查找，通常和|一起使用

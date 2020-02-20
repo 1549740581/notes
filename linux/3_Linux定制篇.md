@@ -74,3 +74,4 @@ alias sts=/opt/develop_tools/sts-4.4.2.RELEASE/SpringToolSuite4
 在/etc/profile中配置了jdk和jre，如果要激活也需要在sherman用户下激活，否则启动sts之后，默认
 使用的jdk还是openjdk。
 - 之后在terminal中直接输入**sts**，即可启动springToolSuite4。
+

@@ -11,16 +11,17 @@
 一般情况下，哪个用户创建了文件，该文件的所有者就是对应的用户。当某个用户创建了某个文件之后，
 默认这个文件所在组就是该用户所在组。其它组：除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组。
 - 查看文件所有者、所在组：ll -a
-- 修改文件所有者：chown username file_name
-- 修改文件所在组：chgrp group_name file_name
-- 修改用户所在的主组：usermod -g username group_name，注意-g和-G两个参数的区别
-- :star:递归修改文件所有者、所在组：chown -R new_owner:new_group dir_name
+- 修改文件所有者：`chown username file_name`
+- 修改文件所在组：`chgrp group_name file_name`
+- 修改用户所在的主组：`usermod -g username group_name`，注意-g和-G两个参数的区别
+- :star:递归修改文件所有者、所在组：`chown -R new_owner:new_group dir_name`
 
 **权限的基本内容**：
 以xxx.txt文件为为例：
+
 ```shell
-# ll xxx.txt
-# -rw-rw-r--. 1 sherman root 0 Dec  7 13:48 xxx.txt
+>> ll xxx.txt
+-rw-rw-r--. 1 sherman root 0 Dec  7 13:48 xxx.txt
 ```
 依次介绍：
 - -: 代表文件类型：
@@ -46,19 +47,18 @@
 - chmod 777 file_name：表示为所有者、所在组用户、其它组用户添加所有权限（7=4+2+1）
 - chmod a+x file_name：表示为所有者、所在组用户、其它组用户添加执行权限
 
-- 1：如果是文件，表示硬链接数目（即文件数目，就是1），如果是目录，代表该目录中子目录的个数，注意：
-如果是目录，这个值至少是2，因为一个所谓的空目录中也有当前目录（.）和父目录（..）两个存在，可以使用：
-ll -a查看
 
+
+- 1：如果是文件，表示硬链接数目（即文件数目，就是1），如果是目录，代表该目录中子目录的个数，注意：如果是目录，这个值至少是2，因为一个所谓的空目录中也有当前目录（.）和父目录（..）两个存在，可以使用：ll -a查看
 - sherman：文件所有者
 - root：文件所在组
 - 0：文件大小（单位：字节），如果是空目录，大小为4096字节，即4kb
 - Dec  7 13:48：文件最后修改时间
 - xxx.txt：文件名
-可能还存在：
 - xxx.txt -> foo：表示软链接实际指向的位置
 
 **chmod命令举例**：
+
 - chmod u=rwx,g=rx,o=rx xxx.txt：xxx.txt文件，所有者所有权限，用户组读、执行权限，其它组读、执行权限
 - chmod u-x,g+w xxx.txt：xxx.txt文件，所有者减去写权限，用户组加上写权限
 - chmod 755 xxx.txt：xxx.txt文件所有者所有权限，所在组和其它组读、执行权限
@@ -74,6 +74,7 @@ ll -a查看
 - -r：删除当前用户所有的crontab任务
 
 **参数说明**：
+
 ```shell
 * * * * * script
 ```
@@ -104,7 +105,8 @@ ll -a查看
 - 编写/home/task1.sh，内容为：date >> /tmp/mydate
 - 给task1.sh可执行权限
 - crontab -e */1 * * * * /home/task1.sh
-    
+  
+
 又例如：每天凌晨2点，将mysql中test_db备份到/tmp/mydb.bak中：
 - 编写/home/task2.sh，内容为：/usr/bin/mysqldump -uroot -psherman >> /tmp/mydb.bak
 - 给/home/task2.sh执行权限
@@ -129,6 +131,7 @@ Linux硬盘分为IDE和SCSI硬盘，目前基本是SCSI硬盘：
     - x：盘号，a：基本盘，b：从属盘，c：辅助主盘，d：辅助从属盘
     - ~：分区，前四个分区用1-4表示，表示它们是主分区或者拓展分区，从5开始表示逻辑分区
     
+
 例如，hda3：IDE硬盘上基本盘上的第3个分区，该分区是主分区或者拓展分区
 - SCSI硬盘：标志符为**sdx~**:sd表示是SCSI硬盘类型，其它和IDE硬盘相同。
 
@@ -164,34 +167,25 @@ Linux硬盘分为IDE和SCSI硬盘，目前基本是SCSI硬盘：
     - -c：total，计算总量
     - h：human，易于人读
     
+
 ![](imgs/du.png)
     
 **其它统计**：
-- 统计当前文件夹（及子文件夹）下所有文件的个数：
-```shell
-# ll [-R] /home/sherman | grep "^-" | wc -l
-```
-- 统计当前文件夹（及其子文件夹）下所有目录的个数：
-```shell
-# ll [-R] /home/sherman | grep "^-" | wc -l
-```
+
+- 统计当前文件夹（及子文件夹）下所有文件的个数：`ll [-R] /home/sherman | grep "^-" | wc -l`
+- 统计当前文件夹（及其子文件夹）下所有目录的个数：`ll [-R] /home/sherman | grep "^d" | wc -l`
 - 以树状结构显示目录结构：
     - yum install tree
     - tree /dir
     
 ### 1.4 网络配置
-配置静态ip：
-```
-# vim /etc/sysconfig/network-scripts/ifcfg-ens33
-```
+配置静态ip：`vim /etc/sysconfig/network-scripts/ifcfg-ens33`
 
 ![](imgs/ip.png)
 
 ### 1.5 进程管理
-**显示系统执行的进程**：
-```shell
-# ps -aux [| more]
-```
+**显示系统执行的进程**：`ps -aux [| more]`
+
 指令详情：
    - USER：用户名称
    - PID：进程id号
@@ -213,11 +207,12 @@ Linux硬盘分为IDE和SCSI硬盘，目前基本是SCSI硬盘：
    - COMMAND：进程启动时所使用的命令和参数
 
 **过滤某个具体进程**：
+
 ```shell
-# ps -ef | grep xxx
+>> ps -ef | grep xxx
 # e：显示所有进程
 # f：full format
-```   
+```
 
 **终止进程**：
 - 踢出非法远程用户：
@@ -229,6 +224,7 @@ Linux硬盘分为IDE和SCSI硬盘，目前基本是SCSI硬盘：
     - -p：显示进程的id
     - -u：显示进程所属用户
     
+
 **服务管理**：
 服务本质上就是进程，但是是运行在后台的，通常会监听某个端口，等待其它进程的请求，也称为守护进程。
 service管理命令：
@@ -265,11 +261,11 @@ systemctl [start|stop|restart|reload|status] service_name
     - d：指定几秒刷新一次
     - q：退出
     
-    
+
 查看top命令的一个截图：
 
 ![](imgs/top.png)
- 
+
 各个参数解释：
 ```shell
 # top -21:25:00 up 4:05 3 users, load average: 0.00, 0.02, 0.05
@@ -318,6 +314,7 @@ RPM是RedHat Package Manager（RedHat软件包管理工具）的缩写，类似w
     - v：verbose
     - h：hash，显示进度条
     
+
 **YUM**:
 
 YUM是一个Shell前端软件包管理器，基于RPM包管理能够从指定服务器自动下载RPM包并且安装，可以**自动处理依赖性关系**，并且一次性
