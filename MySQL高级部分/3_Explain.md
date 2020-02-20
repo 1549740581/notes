@@ -1,15 +1,11 @@
 ## Explain
 
-使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理SQL语句的，从而分析出查询语句或者表结构的性能瓶颈。
-使用方式：explain+sql：
+使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理SQL语句的，从而分析出查询语句或者表结构的性能瓶颈。使用方式：explain+sql：
 
 ```sql
-mysql> explain select * from emp;
-+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
-| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
-+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
-|  1 | SIMPLE      | emp   | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   14 |   100.00 | NULL  |
-+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+>> explain select * from emp;
+id select_type table type possible_keys key key_len ref rows filtered Extra
+1    SIMPLE     emp   ALL      NULL     NULL  NULL  NULL 14   100.00  NULL
 ```
 
 ### 1.1 id字段：读取顺序
@@ -49,11 +45,9 @@ select查询的序列号，包含一组数字，表示查询中执行select子�
 - index：Full Index Scan，index和all的区别为index类型只遍历索引树，这通常比all快，因为索引文件通常比数据文件小，index从索引文件中读取的，all是从硬盘中读取；
 - ALL：全表扫描；
 
-### 1.4 possible_key & key字段
+### 1.4 possible_keys & key字段
 
-possible_key显示可能应用到这张表中的索引，一个或者多个。查询涉及到的字段若存在索引，该索引将被列出，但是**不一定被查询实际所使用**；
-key为实际使用的索引，如果为NULL，则表示没有使用索引。查询中若使用了覆盖索引（查询的字段刚好和建立索引的字段正好相同，即查询列刚好被
-所建索引覆盖），则该索引仅出现在key列表中。通过这两个字段可以完成：
+possible_key显示可能应用到这张表中的索引，一个或者多个。查询涉及到的字段若存在索引，该索引将被列出，但是**不一定被查询实际所使用**；key为实际使用的索引，如果为NULL，则表示没有使用索引。查询中若使用了覆盖索引（查询的字段刚好和建立索引的字段正好相同，即查询列刚好被所建索引覆盖），则该索引仅出现在key列表中。通过这两个字段可以完成：
 > 1. 是否使用了索引，即索引是否失效;
 > 2. 在多个索引竞争的情况下，MySQL最终使用了哪个索引;
 
@@ -61,21 +55,19 @@ key为实际使用的索引，如果为NULL，则表示没有使用索引。查�
 # 未建立索引情况下
 explain select * from emp;
 # output:
-# possible_key: NULL	key: NULL
+# possible_keys: NULL	key: NULL
 
 # 对ename, job建立复合索引情况下：
 create index idx_ename_job on emp(ename, job);
 explain select ename, job from emp;
 # output:
-# possible_key: NULL key: idx_ename_job
+# possible_keys: NULL key: idx_ename_job
 ```
 
 ### 1.5 key_len字段
 
-表示索引中使用的字节数，可以通过该列计算查询中使用的索引的长度。在不损失精确度的情况下，长度越短越好。key_len显示的值为索引字段的最大
-可能长度，并非实际使用的长度，即key_len是根据表定义计算而得到的，不是通过表内检索出的。
+表示索引中使用的字节数，可以通过该列计算查询中使用的索引的长度。在不损失精确度的情况下，长度越短越好。key_len显示的值为索引字段的最大可能长度，并非实际使用的长度，即key_len是根据表定义计算而得到的，不是通过表内检索出的。**检索的条件越多，检索越精确，索引使用的字节数越多**：
 
-**检索的条件越多，检索越精确，索引使用的字节数越多**：
 ```shell
 # emp表上已经对ename，job建立了复合索引idx_ename_job
 explain select * from emp where ename = 'SCOTT';
@@ -102,8 +94,7 @@ explain select * from emp, dept where emp.deptno=dept.deptno;
 
 ### 1.8 Filtered字段
 
-查询条件过滤了表中多少行记录，是一个估算的百分比值。rows列显示的是行的估算值，rows*filtered/100表示跟前面表join的行数。
-在低版本的MySQL中需要使用EXPLAIN EXTENDED时才会展示
+查询条件过滤了表中多少行记录，是一个估算的百分比值。rows列显示的是行的估算值，`rows*filtered/100`表示跟前面表join的行数。在低版本的MySQL中需要使用EXPLAIN EXTENDED时才会展示。
 
 ### 1.9 Extra字段
 
@@ -122,8 +113,7 @@ explain select * from emp where job in ('SALESMAN', 'CLERK') group by mgr;
 # Extra: Using where; Using temporary; Using filesort
 ```
 
-- Using index:star:：表示相应的select操作中使用了覆盖索引（Covering Index），避免了访问表的数据行，效率不错。
-如果同时出现using where，表明索引被用来执行索引键值的查找；如果没有同时出现using where，表明索引用来读取数据而非执行查找动作。
+- Using index:star:：表示相应的select操作中使用了覆盖索引（Covering Index），避免了访问表的数据行，效率不错。如果同时出现using where，表明索引被用来执行索引键值查找；如果没有同时出现using where，表明索引用来读取数据而非执行查找动作。
 ```shell
 explain select ename from emp where job = 'SALESMAN';
 # Extra: Using where; Using index
@@ -133,6 +123,6 @@ explain select ename, job from emp;
 - Using where：表明使用了where过滤
 - Using join buffer：使用了连接缓存，如果出现多个join，需要在my.cnf配置文件中将join buffer内存调大
 - impossible where：where子句的值总是false，不能用来获取任何元组
-- select tables optimized away：在没有group by子句的情况下，基于索引优化MIN/MAX操作或者对于MyISAM存储引擎优化COUNT(*)操作，
-不必等到执行阶段在进行计算，查询执行计划生成的阶段即完成优化
+- select tables optimized away：在没有group by子句的情况下，基于索引优化MIN/MAX操作或者对于MyISAM存储引擎优化COUNT(*)操作，不必等到执行阶段在进行计算，查询执行计划生成的阶段即完成优化
 - distinct：优化distinct操作，在找到第一匹配的元组后即停止找同样值的操作
+

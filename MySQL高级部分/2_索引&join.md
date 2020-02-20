@@ -3,8 +3,8 @@
 ### 1.1 性能下降SQL原因
 - 查询语句写的烂
 - 索引失效：
-    - 单值索引：create index idx_user_name on user(name);
-    - 复合索引：create index idx_userEmail on user(name, email);
+    - 单值索引：create index idx_name on user(name);
+    - 复合索引：create index idx_name_email on user(name, email);
 - 关联查询太多的join（设计缺陷或者是不得已的需求）
 - 服务器调优及各个参数的设置（缓冲、线程池等）不恰当
 
@@ -27,7 +27,7 @@ order by
     [order_by_condition]
 limit
     [limit_number]    
-```    
+```
 - MySQL实际执行顺序：
 ```sql
 from 
@@ -53,7 +53,7 @@ limit
 ![](./imgs/1567563850232.png)
 
 #### 1.3 七种JOIN
-- inner join：
+- inner join
 
 ![](./imgs/1567564023959.png)
 ```sql
@@ -63,7 +63,7 @@ inner join tableB as b
 on a.key = b.key;
 ```
 
-- left join:
+- left join
 
 ![](./imgs/1567564166804.png)
 ```sql
@@ -73,7 +73,7 @@ left join tableB as b
 on a.key = b.key;
 ```
 
-- right join:
+- right join
 
 ![](./imgs/1567564760650.png)
 ```sql
@@ -101,8 +101,7 @@ on a.key = b.key
 where b.key is null;
 
 # example
-mysql> select * from emp e left join dept d on e.deptno =d.deptno where d.deptno is null;
-Empty set(0.00 sec)
+>> select * from emp e left join dept d on e.deptno =d.deptno where d.deptno is null;
 ```
 
 - right join & is null：表示B表独有，所有A表对应字段应该为null
@@ -117,15 +116,7 @@ on a.key = b.key
 where a.key is null;
 
 # example
-mysql> select * from emp e right join dept d on e.deptno = d.deptno where e.deptno is null;
-+-------+-------+------+------+----------+------+------+--------+--------+------------+----------+
-| empno | ename | job  | mgr  | hiredate | sal  | comm | deptno | deptno | dname      | dloc     |
-+-------+-------+------+------+----------+------+------+--------+--------+------------+----------+
-|  NULL | NULL  | NULL | NULL | NULL     | NULL | NULL |   NULL |     40 | OPERATIONS | BOSTON   |
-|  NULL | NULL  | NULL | NULL | NULL     | NULL | NULL |   NULL |     51 | java       | hangzhou |
-|  NULL | NULL  | NULL | NULL | NULL     | NULL | NULL |   NULL |     52 | java       | hangzhou |
-|  NULL | NULL  | NULL | NULL | NULL     | NULL | NULL |   NULL |     53 | java       | hangzhou |
-+-------+-------+------+------+----------+------+------+--------+--------+------------+----------+
+>> select * from emp e right join dept d on e.deptno = d.deptno where e.deptno is null;
 ```
 
 - 全外连接1：MySQL不支持全外连接，但是可以通过合并集——left join & union & right join 完成：
@@ -148,11 +139,9 @@ select * from emp as e right join dept as d on e.deptno = d.deptnowhere e.deptno
 
 #### 1.4 索引
 
-索引（Index）是帮助MySQL高效获取数据的数据结构，本质是一种排好序的快速查找数据结构。索引会影响sql中的两部分：
-where的条件过滤以及order by排序。
+索引（Index）是帮助MySQL高效获取数据的数据结构，本质是一种排好序的快速查找数据结构。索引会影响sql中的两部分：where的条件过滤以及order by排序。
 
-为了加快查找，数据库还维护了一个B树索引，该树的每个节点包含了索引键值和一个指向对应数据记录物理地址的指针。
-这样运用二叉查找在一定负载范围内获得相应数据。一种可能的索引方式示例如下：
+为了加快查找，数据库还维护了一个B树索引，该树的每个节点包含了索引键值和一个指向对应数据记录物理地址的指针。这样运用二叉查找在一定负载范围内获得相应数据。一种可能的索引方式示例如下：
 
 ![](./imgs/1567574240664.png)
 
@@ -166,6 +155,7 @@ where的条件过滤以及order by排序。
     - 虽然索引大大提高查询速度，但是同时会降低更新表（update、insert、delete）的速度。因为每次更新表时，MySQL不仅要保存数据，还要保存一下索引文件每次更新添加索引列的字段，需要调整因为更新导致的键值变化后的索引信息
     - 索引只是提高效率的一个因素，如果MySQL有大数据量的表，需要花费大量的时间研究建立最优秀的索引表
     
+
 **索引分类和索引建立**
 - 索引分类：
     - 单值索引：即一个索引只包含单个列，一个表可以包含多个单值索引
@@ -177,7 +167,7 @@ where的条件过滤以及order by排序。
 create [unique] index index_name on table_name(column_name(length));
 # 方式二
 alter table_name add [unique] index [index_name] on table_name(column_name(length));
-```    
+```
 - 删除索引：
 ```sql
 drop index [index_name] on table_name;
@@ -186,7 +176,7 @@ drop index [index_name] on table_name;
 ```sql
 show index from table_name;
 ```
-- 使用alter放十天假数据表的索引
+- 示例：
 ```sql
 # 添加一个主键, 这意味着索引值必须是唯一的且不能为null
 alter table table_name add primary key (column_list);
@@ -221,7 +211,7 @@ alter table table_name add fulltext index_name(column_list);
 - 经常增删改的表
 - where条件里用不到的字段不创建索引
 - 重复且分布平均的表，如果某个数据里包含了许多重复的内容，为它建立索引没有太大的实际意义
-（索引的选择性（索引列中不同值的数目/表中记录数）越接近1，使用该索引的效率越高）
+（索引的选择性【索引列中不同值的数目/表中记录数】）越接近1，使用该索引的效率越高）
 
 
 
@@ -232,4 +222,4 @@ alter table table_name add fulltext index_name(column_list);
 
 
 
-    
+​    
