@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author sherman
  */
-public class Q21CoinChangeII {
+public class Q22CoinChangeII {
     private int cnt = 0;
 
     /**

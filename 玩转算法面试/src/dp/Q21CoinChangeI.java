@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author sherman
  */
-public class Q20CoinChangeI {
+public class Q21CoinChangeI {
     private int minCnt = Integer.MAX_VALUE;
 
     /**

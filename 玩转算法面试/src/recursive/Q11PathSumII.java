@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author sherman
  */
-public class Q12PathSumII {
+public class Q11PathSumII {
     private List<List<Integer>> res = new ArrayList<>();
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {

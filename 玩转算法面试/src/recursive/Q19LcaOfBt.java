@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author sherman
  */
-public class Q20LcaOfBt {
+public class Q19LcaOfBt {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         List<TreeNode> path1 = new ArrayList<>();
         List<TreeNode> path2 = new ArrayList<>();

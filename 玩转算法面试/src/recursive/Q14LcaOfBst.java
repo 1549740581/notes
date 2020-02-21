@@ -8,7 +8,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q15LcaOfBst {
+public class Q14LcaOfBst {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
             return null;

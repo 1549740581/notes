@@ -5,7 +5,7 @@ package dp;
  * nums[i]：代表第i个物品可以取的次数，特别的，nums[i]==0，表示第i个物品可以选取无数次
  * 否则，第i个物品最多只能选取nums[i]次
  */
-public class Q22ZeroOneBag04 {
+public class Q16ZeroOneBag04 {
     public int zeroOneBag(int[] wgt, int[] val, int[] nums, int M, int N) {
         int[] dp = new int[N + 1];
         for (int i = 0; i < M; ++i) {

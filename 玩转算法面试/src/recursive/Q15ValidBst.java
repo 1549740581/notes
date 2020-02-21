@@ -8,7 +8,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q16ValidBst {
+public class Q15ValidBst {
     private long pre = Long.MIN_VALUE;
 
     public boolean isValidBST(TreeNode root) {

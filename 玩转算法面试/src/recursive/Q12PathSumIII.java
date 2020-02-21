@@ -9,7 +9,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q13PathSumIII {
+public class Q12PathSumIII {
     public int pathSum(TreeNode root, int sum) {
         if (root == null) {
             return 0;

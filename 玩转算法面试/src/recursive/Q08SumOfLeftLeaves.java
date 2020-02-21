@@ -7,7 +7,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q09SumOfLeftLeaves {
+public class Q08SumOfLeftLeaves {
     public int sumOfLeftLeaves(TreeNode root) {
         int cnt = 0;
         if (root != null) {

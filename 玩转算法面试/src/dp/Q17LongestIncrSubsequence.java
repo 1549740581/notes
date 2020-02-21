@@ -8,7 +8,7 @@ import java.util.Arrays;
  *
  * @author sherman
  */
-public class Q16LongestIncrSubsequence {
+public class Q17LongestIncrSubsequence {
     public int lengthOfLIS(int[] nums) {
         if (nums.length <= 1) {
             return nums.length;

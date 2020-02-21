@@ -8,7 +8,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q11PathSumI {
+public class Q10PathSumI {
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) {
             return false;

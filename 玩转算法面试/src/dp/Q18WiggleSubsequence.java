@@ -8,7 +8,7 @@ package dp;
  *
  * @author sherman
  */
-public class Q17WiggleSubsequence {
+public class Q18WiggleSubsequence {
     public int wiggleMaxLength(int[] nums) {
         if (nums.length <= 1) {
             return nums.length;

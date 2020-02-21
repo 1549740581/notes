@@ -8,7 +8,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q19KthSmallestElemInBst {
+public class Q18KthSmallestElemInBst {
     public int kthSmallest(TreeNode root, int k) {
         int leftCnt = countNode(root.left);
         if (leftCnt + 1 == k) {

@@ -14,7 +14,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q14SumOfRootToLeaf {
+public class Q13SumOfRootToLeaf {
     public int sumNumbers(TreeNode root) {
         if (root == null) {
             return 0;

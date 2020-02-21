@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author sherman
  */
-public class Q10BiTreePath {
+public class Q9BiTreePath {
     private List<String> res = new LinkedList<>();
 
     public List<String> binaryTreePaths(TreeNode root) {

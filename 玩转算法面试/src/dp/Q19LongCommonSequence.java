@@ -6,7 +6,7 @@ package dp;
  *
  * @author sherman
  */
-public class Q18LongCommonSequence {
+public class Q19LongCommonSequence {
     public int longestCommonSubsequence(String text1, String text2) {
         /**
          * vertical

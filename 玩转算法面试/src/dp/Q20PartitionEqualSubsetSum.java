@@ -6,7 +6,7 @@ package dp;
  *
  * @author sherman
  */
-public class Q19PartitionEqualSubsetSum {
+public class Q20PartitionEqualSubsetSum {
     public boolean canPartition(int[] nums) {
         if (nums.length <= 1) {
             return false;

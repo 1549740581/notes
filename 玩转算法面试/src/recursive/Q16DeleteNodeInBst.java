@@ -9,7 +9,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q17DeleteNodeInBst {
+public class Q16DeleteNodeInBst {
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null) {
             return null;

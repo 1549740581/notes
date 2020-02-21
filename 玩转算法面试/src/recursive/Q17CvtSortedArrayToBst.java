@@ -7,7 +7,7 @@ import utils.TreeNode;
  *
  * @author sherman
  */
-public class Q18CvtSortedArrayToBst {
+public class Q17CvtSortedArrayToBst {
     public TreeNode sortedArrayToBST(int[] nums) {
         return sortedArrayToBST(nums, 0, nums.length - 1);
     }

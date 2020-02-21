@@ -1,7 +1,7 @@
 package array;
 
 /**
- * 27  remove element
+ * 27 remove element
  * 给定一个数组nums和一个值val，原地移除所有数值等于val的元素，返回移除后数组的新长度.
  *
  * @author sherman
