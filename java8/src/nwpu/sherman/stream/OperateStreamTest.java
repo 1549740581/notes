@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  *          - allMatch                  是否所有元素都匹配
  *          - anyMath                   是否只要一个元素匹配
  *          - noneMatch                 是否所有元素都不匹配
- *          - findFirst                 返回第一个预算
+ *          - findFirst                 返回第一个元素
  *          - findAny                   返回流中任意元素
  *          - count                     流中元素的总个数
  *          - max                       流中的最大值

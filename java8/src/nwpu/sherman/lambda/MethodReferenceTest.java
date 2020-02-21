@@ -42,7 +42,7 @@ public class MethodReferenceTest {
         consumer2.accept(23);
 
         Employee employee = new Employee("sherman", 23, 18888.0);
-        Supplier<String> supplier1 = employee::getName;
+        Supplier<String> supplier1 = () -> employee.getName();
         Supplier<Integer> supplier2 = employee::getAge;
         System.out.println(supplier1.get());
         System.out.println(supplier2.get());

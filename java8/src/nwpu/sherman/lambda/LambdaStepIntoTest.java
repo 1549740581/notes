@@ -16,14 +16,22 @@ public class LambdaStepIntoTest {
      */
     @Test
     public void anonymousClassTest() {
-        Comparator<Integer> comp = new Comparator<Integer>() {
+//        Comparator<Integer> comp = new Comparator<Integer>() {
+//
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return Integer.compare(o2, o1);
+//            }
+//        };
+//        TreeSet<Integer> ts = new TreeSet<>(comp);
+
+        TreeSet<Integer> ts = new TreeSet<>(new Comparator<Integer>() {
 
             @Override
             public int compare(Integer o1, Integer o2) {
                 return Integer.compare(o2, o1);
             }
-        };
-        TreeSet<Integer> ts = new TreeSet<>(comp);
+        });
         ts.add(10);
         ts.add(5);
         ts.add(7);

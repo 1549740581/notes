@@ -24,7 +24,7 @@ public class SimpleDateFormatTest {
 
     /**
      * java.util.concurrent.ExecutionException:
-     *      java.lang.NumberFormatException: multiple points
+     * java.lang.NumberFormatException: multiple points
      */
     public static void main(String[] args) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,7 +46,9 @@ public class SimpleDateFormatTest {
     /**
      * 使用ThreadLocal类来解决SimpleDateFormat问题
      */
-    private static final ThreadLocal<DateFormat> df = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd"));
+    private static final ThreadLocal<DateFormat> df = ThreadLocal.withInitial(
+            () -> new SimpleDateFormat("yyyy-MM-dd")
+    );
 
     private static Date convert(String source) throws ParseException {
         return df.get().parse(source);
@@ -54,10 +56,10 @@ public class SimpleDateFormatTest {
 
     @Test
     public void threadLocalTest() throws Exception {
-        Callable<Date> task = () -> convert("2019-11-25");
-        ExecutorService pool = Executors.newFixedThreadPool(10);
-        List<Future<Date>> results = new ArrayList<>();
         int threadNums = 10;
+        Callable<Date> task = () -> convert("2019-11-25");
+        ExecutorService pool = Executors.newFixedThreadPool(threadNums);
+        List<Future<Date>> results = new ArrayList<>();
         for (int i = 0; i < threadNums; i++) {
             results.add(pool.submit(task));
         }
@@ -74,11 +76,11 @@ public class SimpleDateFormatTest {
      */
     @Test
     public void localDateTest() throws Exception {
+        int threadNums = 10;
         List<Future<LocalDate>> results = new ArrayList<>();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Callable<LocalDate> task = () -> LocalDate.parse("2019-11-25", dtf);
-        ExecutorService pool = Executors.newFixedThreadPool(10);
-        int threadNums = 10;
+        ExecutorService pool = Executors.newFixedThreadPool(threadNums);
         for (int i = 0; i < threadNums; i++) {
             results.add(pool.submit(task));
         }

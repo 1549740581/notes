@@ -39,7 +39,7 @@ public class GenerateStreamTest {
         /**
          * 通过Stream类中静态方法of(T)、of(T...t)创建流
          */
-        Stream<Integer> stream03 = Stream.of(new Integer(100));
+        Stream<Integer> stream03 = Stream.of(100);
         Stream<Integer> stream04 = Stream.of(11, 22, 33);
 
         /**
