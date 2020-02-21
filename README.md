@@ -1,7 +1,7 @@
 ## :monkey:刷题
 
--   剑指offer（Java实现）
--   玩转算法面试 从真题到思维全面提升算法思维
+-   [剑指offer（Java实现）](https://github.com/tanglei302wqy/notes/tree/master/%E5%89%91%E6%8C%87Offer)
+-   [玩转算法面试](https://github.com/tanglei302wqy/notes/tree/master/%E7%8E%A9%E8%BD%AC%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95)
 -   Java玩转算法系列--图论精讲
 
 
