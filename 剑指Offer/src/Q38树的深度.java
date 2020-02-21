@@ -3,7 +3,7 @@
  *
  * @author sherman
  */
-public class Q38数的深度 {
+public class Q38树的深度 {
     public int treeDepth(TreeNode root) {
         if (root == null) {
             return 0;
