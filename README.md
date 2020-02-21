@@ -37,10 +37,10 @@
 ## :gear:工具
 
 -   反编译工具
--   github
+-   [github](https://github.com/tanglei302wqy/notes/blob/master/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/github.md)
 -   docker
--   maven
--   idea
+-   [maven](https://github.com/tanglei302wqy/notes/blob/master/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/maven.md)
+-   [idea](https://github.com/tanglei302wqy/notes/blob/master/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/idea.md)
 
 
 
