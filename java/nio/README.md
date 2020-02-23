@@ -46,7 +46,7 @@ ByteBuffer buf = new ByteBuffer(1024); // 分配一个1024字节的Byte缓冲区
 * mark：标记，表示记录当前position的位置，配合reset()方法可以将position恢复到mark的位置
 * `​0 <= mark <= postion <= limit <= capacity`
 
-![1566435594929](./pics/1566435594929.png)
+![](./pics/1566435594929.png)
 
 ```java
 // 演示NIO中Buffer的相关方法
@@ -141,11 +141,11 @@ public class MarkFieldDemo {
 
 * 非直接缓冲区：通过ByteBuffer.allocate(capacity)分配缓冲区，该缓冲区是分配在JVM内存中，由JVM进行管理。当应用程序向磁盘读写文件时，需要将数据不断在**内核地址空间和用户地址空间之间来回复制**，效率较低
 
-![1566436914976](./pics/1566436914976.png)
+![](./pics/1566436914976.png)
 
 * 直接缓冲区：通过ByteBuffer.allocateDirect()方法分配直接缓冲区，将缓冲区建立在物理内存中，不受JVM控制。当进行IO操作时，JVM会尽可能直接在直接缓冲区上操作，避免复制操作。如果不断在物理内存中分配内存，JVM内部不会收到影响，但可能导致直接内存被使用完毕，最终抛出**OOM: Direct buffer memory**异常。直接缓冲区避免了复制操作从而提高了效率，但同时对之间缓冲区的分配和销毁操作成本会相应提高，并且直接缓冲区控制权不在JVM，也会增加不确定性风险
 
-![1566437378716](./pics/1566437378716.png)
+![](./pics/1566437378716.png)
 
 * 判断是否为直接缓冲区：isDirect()，提供该方法是为了能够在性能关键型代码中执行显式缓冲区管理
 
@@ -157,7 +157,7 @@ public class MarkFieldDemo {
 
 ### 3.1 通道的主要实现类
 
-![1566439400853](./pics/1566439400853.png)
+![](./pics/1566439400853.png)
 
 ### 3.2 获取通道的方法
 
@@ -282,7 +282,7 @@ public class ChannelDemo3 {
 
 * 分散读取（Scatter Reads）：指从Channel中读取的数据“分散”到多个Buffer中
 
-![1566450321140](./pics/1566450321140.png)
+![](./pics/1566450321140.png)
 
 * 注意：按照缓冲区的顺序，依次从Channel中读取数据将Buffer填满为止
 
@@ -290,7 +290,7 @@ public class ChannelDemo3 {
 
 * 聚集写入（Gathering Writes）：指将多个Buffer中的数据“聚集”到一个Channel中
 
-![1566450580694](./pics/1566450580694.png)
+![](./pics/1566450580694.png)
 
 * 注意：按照缓冲区的顺序，将Buffer中**从position到limit之间**的数据写入到Channel中
 
@@ -372,7 +372,7 @@ public class CharsetDemo {
 
 * 选择器（Selector）：是 SelectableChannle 对象的多路复用器，Selector 可以同时监控多SelectableChannel 的 IO 状况（能够知道该通道是否为读写事件做好准备），也就是说，利用 Selector 可使一个单独的线程管理多个 Channel。Selector 是非阻塞 IO 的核心。
 
-![1566471224564](./pics/1566471224564.png)
+![](./pics/1566471224564.png)
 
 ### 5.1客户端（TCP）
 
@@ -518,7 +518,7 @@ public class NIOUdpServer {
 
 ​		Java NIO管道是2个线程之间的单向数据连接。Pipe有一个sink通道和一个source通道。数据会被写入到sink通道，然后从source通道中读取。
 
-![1566483324775](./pics/1566483324775.png)
+![](./pics/1566483324775.png)
 
 ```java
 /**

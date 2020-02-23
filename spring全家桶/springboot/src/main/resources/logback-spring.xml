@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_HOME" value="./logback_log"/>
+    <property name="appName" value="springboot"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <springProfile name="dev">
+                <Pattern>%d{HH:mm:ss.SSS}-->[%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </springProfile>
+            <springProfile name="prod">
+                <Pattern>%d{HH:mm:ss.SSS}==>[%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </springProfile>
+        </layout>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 指定文件名称 -->
+        <springProfile name="dev">
+            <file>${LOG_HOME}/${appName}-dev.log</file>
+        </springProfile>
+        <springProfile name="prod">
+            <file>${LOG_HOME}/${appName}-prod.log</file>
+        </springProfile>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <springProfile name="dev">
+                <Pattern>%d{HH:mm:ss.SSS}-->[%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </springProfile>
+            <springProfile name="prod">
+                <Pattern>%d{HH:mm:ss.SSS}==>[%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </springProfile>
+        </layout>
+
+        <!-- 最常用的滚动策略，它根据时间来指定滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>100KB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+</configuration>
