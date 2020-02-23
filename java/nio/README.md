@@ -2,7 +2,7 @@
 
 ## 一. Java NIO简介
 
-​		Java NIO（New IO，也可以称为Non-Blocking IO）是从JDK1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO和原来的IO有同样的作用和目的，但是使用方式完全不同，NIO主要是支持面向缓冲区的、基于通道的IO操作，因此NIO可以更加高效地进行文件读写操作
+Java NIO（New IO，也可以称为Non-Blocking IO）是从JDK1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO和原来的IO有同样的作用和目的，但是使用方式完全不同，NIO主要是支持面向缓冲区的、基于通道的IO操作，因此NIO可以更加高效地进行文件读写操作
 
 ### 1.1 NIO和IO的主要区别
 
