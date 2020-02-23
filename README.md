@@ -1,27 +1,27 @@
 ## :monkey:刷题
 
--   [剑指offer（Java实现）](https://github.com/tanglei302wqy/notes/tree/master/%E5%89%91%E6%8C%87Offer)
--   [玩转算法面试](https://github.com/tanglei302wqy/notes/tree/master/%E7%8E%A9%E8%BD%AC%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95)
--   Java玩转算法系列--图论精讲
+-   [剑指Offer](https://github.com/tanglei302wqy/notes/tree/master/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87Offer)
+-   [玩转算法面试](https://github.com/tanglei302wqy/notes/tree/master/%E5%88%B7%E9%A2%98/%E7%8E%A9%E8%BD%AC%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95)
+-   Java玩转算法系列——图论精讲
 
 
 
 ##  :computer:操作系统&数据库
 
--   [Linux](https://github.com/tanglei302wqy/notes/tree/master/linux)
--   网络
+-   [Linux](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/linux)
+-   [网络](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%BD%91%E7%BB%9C)
 
--   [MySQL高级部分](https://github.com/tanglei302wqy/notes/tree/master/MySQL%E9%AB%98%E7%BA%A7%E9%83%A8%E5%88%86)
--   [Redis](https://github.com/tanglei302wqy/notes/tree/master/redis)
+-   [MySQL](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/mysql_advance)
+-   [Redis](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/redis)
 -   MyBatis
 
 
 
 ## :coffee:Java
 
--   [Java8新特性](https://github.com/tanglei302wqy/notes/tree/master/java8)
--   JVM
--   NIO
+-   [Java8](https://github.com/tanglei302wqy/notes/tree/master/java/java8%E6%96%B0%E7%89%B9%E6%80%A7)
+-   [JVM](https://github.com/tanglei302wqy/notes/tree/master/java/jvm)
+-   [NIO](https://github.com/tanglei302wqy/notes/tree/master/java/nio)
 -   知识点总结
 
 
@@ -30,7 +30,7 @@
 
 -   Html&CSS
 -   JavaScript
--   Vue
+-   [Vue](https://github.com/tanglei302wqy/notes/tree/master/%E5%89%8D%E7%AB%AF/vue)
 
 
 
@@ -46,9 +46,9 @@
 
 ## :leaves:Spring
 
--   Spring注解版
--   Spring MVC
--   Spring Boot
+-   [Spring注解版](https://github.com/tanglei302wqy/notes/tree/master/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/spring_annotation)
+-   [Spring MVC](https://github.com/tanglei302wqy/notes/tree/master/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/springmvc)
+-   [Spring Boot](https://github.com/tanglei302wqy/notes/tree/master/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/springboot)
 -   Spring Cloud
 
 
