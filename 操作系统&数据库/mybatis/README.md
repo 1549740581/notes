@@ -224,7 +224,7 @@ public Map<String, Student> selectStudentsMap() {
 
 ### select（模糊查询）
 
-注意模糊查询中不要使用**${}**，${}只是进行简单的字符串拼接，以硬编码的方法拼接到sql语句中，存在SQ注入风险。**#{}**是占位符，在日志中可以看到被编译成**?**做站位作用，使用的是PrepareStatement，效率高，无SQL注入风险。
+注意模糊查询中不要使用 **${}** ，${}只是进行简单的字符串拼接，以硬编码的方法拼接到sql语句中，存在SQ注入风险。**#{}** 是占位符，在日志中可以看到被编译成 **?** 做占位作用，使用的是PrepareStatement，效率高，无SQL注入风险。
 
 ```xml
 <select id="selectStudentByName" resultType="Student">
@@ -289,7 +289,7 @@ sql标签有ResultMap属性，它是ResultType的增强版本，用于完成DB�
 注意：
 
 -   \<select/\>标签中resultMap的值要和\<resultMap/\>标签中id值相同
--   \<resultMap/\>标签中主键用\<id/\>标签，其余用\</result/\>标签
+-   \<resultMap/\>标签中主键用\<id/\>标签，其余用\<result/\>标签
 
 
 
@@ -437,7 +437,7 @@ Mybatis的查询缓存机制根据作用域的不同，可以分为一级缓存�
 
 ### Mybatis究竟缓存什么
 
-一个**`\<select id="xxx"\> \</select\>**`有id决定其唯一性，对于一个查询sql而言，可以直接缓存查询出来的结果，下一次相同查询时，直接将查询出来的结果返回即可。也可以缓存sql语句的id（即上面的xxx）。那么Mybatis是缓存查询出来的结果还是缓存sql语句的id呢？
+一个 **`<select id="xxx"> </select>`** 有id决定其唯一性，对于一个查询sql而言，可以直接缓存查询出来的结果，下一次相同查询时，直接将查询出来的结果返回即可。也可以缓存sql语句的id（即上面的xxx）。那么Mybatis是缓存查询出来的结果还是缓存sql语句的id呢？
 
 缓存sql语句的id！Hibernate缓存的是查询出来的结果。
 
