@@ -16,8 +16,9 @@ public class Q31整数中1的次数 {
         int cnt = 0;
         while (n > 0) {
             int reminder = n % 10;
-            if (reminder == 1)
+            if (reminder == 1){
                 ++cnt;
+            }
             n /= 10;
         }
         return cnt;

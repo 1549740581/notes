@@ -8,7 +8,7 @@ import java.util.Queue;
  */
 public class Q18二叉树的镜像 {
     /*
-     * 中序遍历，访问到当前树的根节点时，交换左右子节点
+     * 前序遍历，访问到当前树的根节点时，交换左右子节点
      */
     public void mirror(TreeNode root) {
         if (root == null || root.left == null && root.right == null) {

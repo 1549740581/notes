@@ -23,33 +23,25 @@ public class Q19蛇形打印数组 {
         lists.add(matrix[x][y]);
         isVisited[x][y] = true;
         while (cnt < rows * cols) {
-            /**
-             * 从左往右
-             */
+            // 从左往右
             while (y + 1 < cols && !isVisited[x][y + 1]) {
                 lists.add(matrix[x][++y]);
                 isVisited[x][y] = true;
                 ++cnt;
             }
-            /**
-             * 从上往下
-             */
+            // 从上往下
             while (x + 1 < rows && !isVisited[x + 1][y]) {
                 lists.add(matrix[++x][y]);
                 isVisited[x][y] = true;
                 ++cnt;
             }
-            /**
-             * 从右往左
-             */
+            // 从右往左
             while (y - 1 >= 0 && !isVisited[x][y - 1]) {
                 lists.add(matrix[x][--y]);
                 isVisited[x][y] = true;
                 ++cnt;
             }
-            /**
-             * 从下往上
-             */
+            // 从下往上
             while (x - 1 >= 0 && !isVisited[x - 1][y]) {
                 lists.add(matrix[--x][y]);
                 isVisited[x][y] = true;

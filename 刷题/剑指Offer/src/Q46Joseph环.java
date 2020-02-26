@@ -34,9 +34,7 @@ public class Q46Joseph环 {
         while (lists.size() > 1) {
             idx = (idx + m) % lists.size();
             lists.remove(idx);
-            /**
-             * 移除一个元素后，链表总长度减一，idx索引位置就相对减1，防止溢出
-             */
+            // 移除一个元素后，链表总长度减一，idx索引位置就相对减1，防止溢出
             --idx;
         }
         return lists.get(0);

@@ -17,9 +17,7 @@ public class Q41和为Sum的连续正序列 {
         int hi = 2;
         int curSum = 3;
         int mid = (sum + 1) / 2;
-        /**
-         * lo不能>=mid，否则lo + hi > sum
-         */
+        // lo不能>=mid，否则lo + hi > sum
         while (lo < mid) {
             if (curSum == sum) {
                 getRange(lo, hi);

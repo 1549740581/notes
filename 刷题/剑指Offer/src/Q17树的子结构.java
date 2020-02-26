@@ -27,9 +27,7 @@ public class Q17树的子结构 {
     }
 
     private boolean isContains(TreeNode root1, TreeNode root2) {
-        /**
-         * 注意下面两个if顺序不能调换
-         */
+        // 注意下面两个if顺序不能调换
         if (root2 == null) {
             return true;
         }

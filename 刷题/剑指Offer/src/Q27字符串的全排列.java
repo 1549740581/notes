@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  * 字符串全排列，注意字符串中可能包含重复字符，返回结果中不能包含重复结果
@@ -17,26 +17,22 @@ public class Q27字符串的全排列 {
             return res;
         }
         visited = new boolean[str.length()];
-        Stack<Character> stk = new Stack<>();
+        ArrayList<Character> tmp = new ArrayList<>();
         char[] chars = str.toCharArray();
-        /**
-         * 需要排序
-         */
+        // 需要排序
         Arrays.sort(chars);
-        dfs(chars, 0, stk);
+        dfs(chars, 0, tmp);
         return res;
     }
 
-    private void dfs(char[] chars, int idx, Stack<Character> stk) {
+    private void dfs(char[] chars, int idx, ArrayList<Character> tmp) {
         if (idx == chars.length) {
             StringBuilder sb = new StringBuilder();
-            for (Character ch : stk) {
+            for (Character ch : tmp) {
                 sb.append(ch);
             }
             res.add(sb.toString());
-            /**
-             * 注意return，剪枝操作
-             */
+            // 注意return，剪枝操作
             return;
         }
         for (int i = 0; i < chars.length; ++i) {
@@ -48,13 +44,12 @@ public class Q27字符串的全排列 {
                 if (i > 0 && chars[i] == chars[i - 1] && !visited[i - 1]) {
                     continue;
                 }
-                stk.add(chars[i]);
+                tmp.add(chars[i]);
                 visited[i] = true;
-                dfs(chars, idx + 1, stk);
+                dfs(chars, idx + 1, tmp);
                 visited[i] = false;
-                stk.pop();
+                tmp.remove(tmp.size() - 1);
             }
         }
     }
-
 }

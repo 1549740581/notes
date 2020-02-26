@@ -14,18 +14,23 @@ public class Q12实现Power函数 {
         return flag ? (1 / ans) : ans;
     }
 
+	//递归
     private double powerInternal(double base, int exp) {
-        if (exp == 0)
+        if (exp == 0){
             return 1;
-        if (exp == 1)
+		}
+        if (exp == 1){
             return base;
+		}
         double ans = powerInternal(base, exp >> 1);
         ans *= ans;
-        if ((exp & 1) == 1)
+        if ((exp & 1) == 1){
             ans *= base;
+		}
         return ans;
     }
 
+	// 迭代
     public double power01(double base, int exponent) {
         boolean flag = exponent < 0;
         if (flag) {

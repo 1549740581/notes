@@ -28,29 +28,4 @@ public class Q56删除链表重复节点 {
         }
         return dummyNode.next;
     }
-
-    public ListNode deleteDuplication(ListNode pHead) {
-        if (pHead == null || pHead.next == null) {
-            return pHead;
-        }
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = pHead;
-        ListNode pre = dummyNode;
-        ListNode cur = pHead.next;
-        while (cur != null) {
-            if (pre.next.val == cur.val) {
-                do {
-                    cur = cur.next;
-                } while (cur != null && cur.val == pre.next.val);
-                pre.next = cur;
-                if (cur != null) {
-                    cur = cur.next;
-                }
-            } else {
-                pre = pre.next;
-                cur = cur.next;
-            }
-        }
-        return dummyNode.next;
-    }
 }

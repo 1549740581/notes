@@ -8,7 +8,6 @@ public class Q43左旋字符串 {
         if ("".equals(str)) {
             return "";
         }
-        n = n % str.length();
-        return str.substring(n) + str.substring(0, n);
+        return str.substring(n) + str.substring(0, n % str.length());
     }
 }

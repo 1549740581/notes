@@ -9,30 +9,30 @@ import java.util.Stack;
  * @author sherman
  */
 public class Q24二叉树中和为某值的路径 {
-	private ArrayList<ArrayList<Integer>> pathes = new ArrayList<>();
-	private Stack<Integer> stack = new Stack<>();
+    private ArrayList<ArrayList<Integer>> pathes = new ArrayList<>();
+    private Stack<Integer> stack = new Stack<>();
 
-	public ArrayList<ArrayList<Integer>> findPath(TreeNode root, int target) {
-		if (root == null){
-			return pathes;
-		}
-		int currentSum = 0;
-		findPathInternal(root, currentSum, target);
-		return pathes;
-	}
+    public ArrayList<ArrayList<Integer>> findPath(TreeNode root, int target) {
+        if (root == null){
+            return pathes;
+        }
+        int currentSum = 0;
+        findPathInternal(root, currentSum, target);
+        return pathes;
+    }	
 
-	private void findPathInternal(TreeNode root, int currentSum, int target) {
-		currentSum += root.val;
-		stack.push(root.val);
-		if (root.left == null && root.right == null && currentSum == target) {
-			pathes.add(new ArrayList<>(stack));
-		}
-		if (root.left != null) {
-			findPathInternal(root.left, currentSum, target);
-		}
-		if (root.right != null) {
-			findPathInternal(root.right, currentSum, target);
-		}
-		stack.pop();
-	}
+    private void findPathInternal(TreeNode root, int currentSum, int target) {
+        currentSum += root.val;
+        stack.push(root.val);
+        if (root.left == null && root.right == null && (currentSum == target)) {
+            pathes.add(new ArrayList<>(stack));
+        }
+        if (root.left != null) {
+            findPathInternal(root.left, currentSum, target);
+        }
+        if (root.right != null) {
+            findPathInternal(root.right, currentSum, target);
+        }
+        stack.pop();
+    }
 }

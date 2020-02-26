@@ -32,9 +32,10 @@ public class Q35逆序对 {
         int[] tmp = new int[hi - lo + 1];
         int k = 0;
         while (i <= mid && j <= hi) {
-            if (array[i] < array[j]) {
+            if (array[i] <= array[j]) {
                 tmp[k++] = array[i++];
-            } else if (array[i] > array[j]) { // array[i...mid] > array[j]，都是逆序对
+            } else if (array[i] > array[j]) {
+                // array[i...mid] > array[j]，都是逆序对
                 tmp[k++] = array[j++];
                 cnt += (mid - i + 1);
             }
