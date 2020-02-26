@@ -10,8 +10,9 @@ public class Q29最小的K个数 {
      * 使用大顶堆
      */
     public ArrayList<Integer> getLeastNumbers01(int[] input, int k) {
-        if (input == null || k > input.length || k == 0)
+        if (input == null || k > input.length || k == 0){
             return new ArrayList<Integer>();
+        }
         ArrayList<Integer> res = new ArrayList<>();
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>(k, Collections.reverseOrder());
         for (int elem : input) {
@@ -34,8 +35,9 @@ public class Q29最小的K个数 {
      * 使用partition操作
      */
     public ArrayList<Integer> getLeastNumbers(int[] input, int k) {
-        if (input == null || k > input.length || k == 0)
+        if (input == null || k > input.length || k == 0){
             return new ArrayList<>();
+        }
         return getLeastNumbersInternal(input, 0, input.length - 1, k);
     }
 

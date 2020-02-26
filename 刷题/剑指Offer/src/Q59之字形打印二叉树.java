@@ -10,8 +10,9 @@ import java.util.Stack;
 public class Q59之字形打印二叉树 {
     public ArrayList<ArrayList<Integer>> print(TreeNode pRoot) {
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        if (pRoot == null)
+        if (pRoot == null){
             return res;
+        }
         int current = 0;
         int next = 1;
         /**
@@ -55,8 +56,9 @@ public class Q59之字形打印二叉树 {
 
     public ArrayList<ArrayList<Integer>> print01(TreeNode pRoot) {
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        if (pRoot == null)
+        if (pRoot == null){
             return res;
+        }
         Stack<TreeNode> stack1 = new Stack<>();
         Stack<TreeNode> stack2 = new Stack<>();
         stack1.push(pRoot);

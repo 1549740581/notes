@@ -35,9 +35,7 @@ public class Q50数组中重复的数字 {
                     return true;
                 }
                 int tmp = numbers[i];
-                /**
-                 * 注意不能写成：numbers[numbers[i]] = tmp;
-                 */
+                // 注意不能写成：numbers[numbers[i]] = tmp;
                 numbers[i] = numbers[tmp];
                 numbers[tmp] = tmp;
             }

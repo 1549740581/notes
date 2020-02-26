@@ -14,8 +14,9 @@ public class Q45扑克牌的顺序 {
         Arrays.sort(numbers);
         int zeroCnt = 0;
         for (int number : numbers) {
-            if (number == 0)
+            if (number == 0){
                 ++zeroCnt;
+            }
             else {
                 break;
             }
@@ -24,9 +25,7 @@ public class Q45扑克牌的顺序 {
         int hi = lo + 1;
         int gapCnt = 0;
         while (hi < numbers.length) {
-            /**
-             * 对子
-             */
+            // 对子
             if (numbers[lo] == numbers[hi]) {
                 return false;
             }

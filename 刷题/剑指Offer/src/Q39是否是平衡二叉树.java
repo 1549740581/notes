@@ -6,9 +6,7 @@
  */
 public class Q39是否是平衡二叉树 {
     public boolean isBalancedBiTree(TreeNode root) {
-        /**
-         * 空树默认是平衡二叉树
-         */
+        // 空树默认是平衡二叉树
         if (root == null) {
             return true;
         }

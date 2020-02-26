@@ -18,8 +18,7 @@ public class Q04重构二叉树 {
         for (int i = 0; i < in.length; ++i) {
             if (in[i] == pre[0]) {
                 root.left = reConstructBinaryTree(Arrays.copyOfRange(pre, 1, i + 1), Arrays.copyOfRange(in, 0, i));
-                root.right = reConstructBinaryTree(Arrays.copyOfRange(pre, i + 1, pre.length),
-                        Arrays.copyOfRange(in, i + 1, in.length));
+                root.right = reConstructBinaryTree(Arrays.copyOfRange(pre, i + 1, pre.length), Arrays.copyOfRange(in, i + 1, in.length));
                 break;
             }
         }

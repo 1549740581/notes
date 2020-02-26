@@ -2,7 +2,7 @@
  * 数组中出现次数超过一半的数字
  * 如果不存在，返回0
  *
- * @author sherman2571
+ * @author sherman
  */
 public class Q28数组中次数超过一半的数字 {
     public int moreThanHalfNum(int[] array) {
@@ -33,5 +33,4 @@ public class Q28数组中次数超过一半的数字 {
         }
         return (times > array.length / 2) ? result : 0;
     }
-
 }

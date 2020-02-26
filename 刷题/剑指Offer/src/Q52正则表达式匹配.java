@@ -31,7 +31,7 @@ public class Q52正则表达式匹配 {
         if (j + 1 < pattern.length && pattern[j + 1] == '*') {
             // 当前字符匹配
             if (i != str.length && (str[i] == pattern[j] || pattern[j] == '.')) {
-                return match(str, i + 1, pattern, j + 2) || // *只匹配一个
+                return match(str, i + 1, pattern, j + 2) ||     // *只匹配一个
                         match(str, i + 1, pattern, j) ||        // *匹配多个
                         match(str, i, pattern, j + 2);          // *一个也不匹配
             } else { // 当前字符不匹配，只能忽略当前*，判断pattern下一个字符是否匹配

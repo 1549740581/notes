@@ -11,9 +11,7 @@ public class Q20包含min函数的栈 {
 
     public void push(int node) {
         data.push(node);
-        /**
-         * 新元素比helper栈顶元素小或者helper为空
-         */
+        // helper为空或者node值小于helper堆顶元素，直接向helper中推入
         if (helper.isEmpty() || helper.peek() > node) {
             helper.push(node);
         } else {

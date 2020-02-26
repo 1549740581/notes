@@ -15,9 +15,7 @@ public class Q60二叉树层序遍历保留每层节点值 {
         }
         Queue<TreeNode> queue = new ArrayDeque<>();
         queue.add(pRoot);
-        /**
-         * 记录每一层节点数
-         */
+        // 记录每一层节点数
         int cnt = 1;
         ArrayList<Integer> tmp = new ArrayList<>();
         while (!queue.isEmpty()) {

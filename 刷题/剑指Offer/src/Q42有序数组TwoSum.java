@@ -12,9 +12,7 @@ public class Q42有序数组TwoSum {
         int lo = 0, hi = array.length - 1;
         while (lo < hi) {
             int curSum = array[lo] + array[hi];
-            /**
-             * 两数和相同的情况下，lo和hi越靠近中间，乘积越大
-             */
+            // 两数和相同的情况下，lo和hi越靠近中间，乘积越大
             if (curSum == sum) {
                 arrayList.add(array[lo]);
                 arrayList.add(array[hi]);

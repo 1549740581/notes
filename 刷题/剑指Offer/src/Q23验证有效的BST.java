@@ -22,8 +22,9 @@ public class Q23验证有效的BST {
         int length = sequence.length;
         int root = sequence[length - 1];
         for (; i < length - 1; ++i) {
-            if (sequence[i] > root)
+            if (sequence[i] > root){
                 break;
+			}
         }
         /**
          * sequence[0...i) < root && sequence[i...sequence.length - 1) > root

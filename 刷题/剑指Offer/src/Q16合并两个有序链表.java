@@ -18,9 +18,7 @@ public class Q16合并两个有序链表 {
             }
             cur = cur.next;
         }
-        /**
-         * 链表直接使用if即可，不需要使用while循环
-         */
+        // 链表直接使用if即可，不需要使用while循环
         if (list1 != null) {
             cur.next = list1;
         }

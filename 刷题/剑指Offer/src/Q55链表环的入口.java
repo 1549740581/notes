@@ -14,17 +14,15 @@ public class Q55链表环的入口 {
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if (slow == fast)
+            if (slow == fast){
                 break;
+            }
         }
         // 没有环
         if (fast == null) {
             return null;
         } else {
-            /**
-             * 寻找环
-             *
-             */
+            // 寻找环
             slow = pHead;
             while (slow != fast) {
                 slow = slow.next;

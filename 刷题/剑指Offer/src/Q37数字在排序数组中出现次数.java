@@ -6,8 +6,11 @@
 public class Q37数字在排序数组中出现次数 {
     public int getNumberOfK(int[] array, int k) {
         int hi = binarySearchRangeHi(array, k);
+        if (hi < 0){
+            return 0;
+        }
         int lo = binarySearchRangeLo(array, k);
-        if (lo < 0 || hi < 0) {
+        if (lo < 0) {
             return 0;
         }
         return (hi - lo + 1);
@@ -58,5 +61,4 @@ public class Q37数字在排序数组中出现次数 {
         }
         return -1;
     }
-
 }
