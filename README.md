@@ -2,7 +2,7 @@
 
 -   [剑指Offer](https://github.com/tanglei302wqy/notes/tree/master/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87Offer)
 -   [玩转算法面试](https://github.com/tanglei302wqy/notes/tree/master/%E5%88%B7%E9%A2%98/%E7%8E%A9%E8%BD%AC%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95)
--   Java玩转算法系列——图论精讲
+-   图论精讲
 
 
 
@@ -13,7 +13,7 @@
 
 -   [MySQL](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/mysql_advance)
 -   [Redis](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/redis)
--   MyBatis
+-   [MyBatis](https://github.com/tanglei302wqy/notes/tree/master/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%26%E6%95%B0%E6%8D%AE%E5%BA%93/mybatis)
 
 
 
@@ -36,11 +36,11 @@
 
 ## :gear:工具
 
--   反编译工具
--   [github](https://github.com/tanglei302wqy/notes/blob/master/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/github.md)
+-   [反编译](https://github.com/tanglei302wqy/notes/tree/master/%E5%B7%A5%E5%85%B7/jad)
+-   [github](https://github.com/tanglei302wqy/notes/tree/master/%E5%B7%A5%E5%85%B7/github)
 -   docker
--   [maven](https://github.com/tanglei302wqy/notes/blob/master/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/maven.md)
--   [idea](https://github.com/tanglei302wqy/notes/blob/master/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/idea.md)
+-   [maven](https://github.com/tanglei302wqy/notes/tree/master/%E5%B7%A5%E5%85%B7/maven)
+-   [idea](https://github.com/tanglei302wqy/notes/tree/master/%E5%B7%A5%E5%85%B7/idea)
 
 
 
@@ -55,5 +55,5 @@
 
 ## :dart:面试
 
--   [尚硅谷面试第一季](https://github.com/tanglei302wqy/notes/tree/master/%E9%9D%A2%E8%AF%95%E7%AC%AC%E4%B8%80%E5%AD%A3)
--   [尚硅谷面试第二季](https://github.com/tanglei302wqy/notes/tree/master/%E9%9D%A2%E8%AF%95%E7%AC%AC%E4%BA%8C%E5%AD%A3)
+-   [尚硅谷面试第一季](https://github.com/tanglei302wqy/notes/tree/master/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E7%AC%AC%E4%B8%80%E5%AD%A3)
+-   [尚硅谷面试第二季](https://github.com/tanglei302wqy/notes/tree/master/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E7%AC%AC%E4%BA%8C%E5%AD%A3)
