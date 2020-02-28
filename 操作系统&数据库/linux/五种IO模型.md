@@ -121,7 +121,7 @@ I/O多路复用模型的优势在于单个进程能够处理更多的连接，�
 
 信号驱动式I/O，在Linux中设置socket为信号驱动IO，并且为其安装一个信号处理函数，进程继续运行并不阻塞。当数据准备好后，用户进程会受到一个SIGIO，可以在信号处理函数中调用I/O操作函数处理数据：
 
-<img src="./imgs/信号驱动式IO.jpg" style=zoom:50% align=center />
+<img src="./imgs/信号驱动式IO.jpg" align=center />
 
 信号驱动式I/O实际中并不常用，注意kernel第一次返回SIGIO时，此时数据仅仅是准备状态，还没有完成数据拷贝动作，用户进程接收到SIGIO信号后，还需要发起一次系统调用，通知kernel去完成数据拷贝动作。
 
