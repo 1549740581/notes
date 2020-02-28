@@ -29,10 +29,11 @@ public class Q07AddTwoNumbersII {
             int n1 = stk1.empty() ? 0 : stk1.pop();
             int n2 = stk2.empty() ? 0 : stk2.pop();
             int val = n1 + n2 + carry;
-            ListNode tmp = new ListNode(val % 10);
             /**
-             * 新产生的节点插入到head节点之前，并重置head指针
+             * 如果ListNode存在这样的构造器：ListNode(int val, ListNode next),可以简化为：
+             * head = new ListNode(val % 10, head);
              */
+            ListNode tmp = new ListNode(val % 10);
             tmp.next = head;
             head = tmp;
             carry = val / 10;

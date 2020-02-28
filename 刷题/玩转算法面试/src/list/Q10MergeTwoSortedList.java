@@ -53,5 +53,4 @@ public class Q10MergeTwoSortedList {
         }
         return dummy.next;
     }
-
 }
