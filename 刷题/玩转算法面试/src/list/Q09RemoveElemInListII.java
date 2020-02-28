@@ -55,7 +55,7 @@ public class Q09RemoveElemInListII {
                 cur = cur.next;
             } else {
                 ListNode probe = cur.next;
-                while (probe != null && probe.val == cur.next.val) {
+                while (probe != null && probe.val == cur.val) {
                     probe = probe.next;
                 }
                 if (probe == null) {

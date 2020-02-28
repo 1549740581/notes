@@ -11,7 +11,6 @@ package array;
  */
 public class Q06MergeSortedArray {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        // 合并之后元素数量 m + n - 1
         int idx = m-- + n-- - 1;
         while (m >= 0 && n >= 0) {
             nums1[idx--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];

@@ -82,7 +82,7 @@ public class Q13SortList {
     }
 
     /**
-     * 自定向上归并排序，可以在常数级空间复杂度完成
+     * 自底向上归并排序，可以在常数级空间复杂度完成
      */
     public ListNode sortListBU(ListNode head) {
         ListNode dummy = new ListNode(-1);
