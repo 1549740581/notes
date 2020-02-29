@@ -34,7 +34,6 @@ public class Q07FalttenNestedList implements Iterator<Integer> {
 
     private Stack<NestedInteger> stk = new Stack<>();
 
-
     public Q07FalttenNestedList(List<NestedInteger> nestedList) {
         for (int i = nestedList.size() - 1; i >= 0; i--) {
             stk.push(nestedList.get(i));

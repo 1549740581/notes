@@ -25,11 +25,11 @@ public class Q06PostorderTraversal {
 
 
     private static class StackFrame {
-        private boolean isprint;
+        private boolean isPrint;
         private TreeNode node;
 
-        public StackFrame(boolean isprint, TreeNode node) {
-            this.isprint = isprint;
+        public StackFrame(boolean isPrint, TreeNode node) {
+            this.isPrint = isPrint;
             this.node = node;
         }
     }
@@ -42,7 +42,7 @@ public class Q06PostorderTraversal {
         stk.push(new StackFrame(false, root));
         while (!stk.isEmpty()) {
             StackFrame elem = stk.pop();
-            if (elem.isprint) {
+            if (elem.isPrint) {
                 res.add(elem.node.val);
             } else {
                 stk.push(new StackFrame(true, elem.node));
@@ -56,6 +56,4 @@ public class Q06PostorderTraversal {
         }
         return res;
     }
-
-
 }

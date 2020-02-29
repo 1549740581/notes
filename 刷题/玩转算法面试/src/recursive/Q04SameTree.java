@@ -12,7 +12,7 @@ import utils.TreeNode;
 public class Q04SameTree {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         /**
-         * 两者都不等于null
+         * 两者都是null
          */
         if (p == null && q == null) {
             return true;

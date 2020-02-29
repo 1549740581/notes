@@ -58,7 +58,7 @@ public class Q07WordLadderII {
                             isFound = true;
                             p.add(neighbor);
                             ans.add(new ArrayList<>(p));
-                            p.remove(p.size() - 1);
+                            break;
                         }
                         p.add(neighbor);
                         queue.offer(new ArrayList<>(p));
@@ -67,10 +67,10 @@ public class Q07WordLadderII {
                     }
                 }
             }
-            visited.addAll(subVisited);
             if (isFound) {
                 break;
             }
+            visited.addAll(subVisited);
         }
     }
 
@@ -82,12 +82,12 @@ public class Q07WordLadderII {
                 if (chs[i] == ch) {
                     continue;
                 }
-                char old_ch = chs[i];
+                char oldCh = chs[i];
                 chs[i] = ch;
                 if (dict.contains(String.valueOf(chs))) {
                     res.add(String.valueOf(chs));
                 }
-                chs[i] = old_ch;
+                chs[i] = oldCh;
             }
         }
         return res;
