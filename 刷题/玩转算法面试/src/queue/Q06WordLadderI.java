@@ -48,7 +48,6 @@ public class Q06WordLadderI {
 //                        }
 //                    }
 //                }
-
                 for (int idx = 0; idx < item.length(); ++idx) {
                     char[] chars = item.toCharArray();
                     for (char ch = 'a'; ch <= 'z'; ++ch) {
@@ -81,5 +80,4 @@ public class Q06WordLadderI {
 //        }
 //        return true;
 //    }
-
 }

@@ -72,7 +72,6 @@ public class Q05SymmetricTree {
                 deque.addFirst(left.right == null ? dummy : left.right);
                 deque.addLast(right.right == null ? dummy : right.right);
                 deque.addLast(right.left == null ? dummy : right.left);
-
             }
         }
         return true;
