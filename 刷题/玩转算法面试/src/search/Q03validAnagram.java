@@ -22,5 +22,7 @@ public class Q03validAnagram {
             }
         }
         return true;
+        // Java8
+        // return Arrays.stream(maps).allMatch(e -> e == 0);
     }
 }

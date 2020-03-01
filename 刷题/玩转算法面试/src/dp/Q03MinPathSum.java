@@ -45,5 +45,4 @@ public class Q03MinPathSum {
         }
         return dp[rows - 1][cols - 1];
     }
-
 }

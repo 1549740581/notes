@@ -37,5 +37,4 @@ public class Q06SomorphicString {
         }
         return true;
     }
-
 }

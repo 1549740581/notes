@@ -28,5 +28,12 @@ public class Q01IntersectionOfTwoArray {
             res[idx++] = item;
         }
         return res;
+
+
+        // 增加Java8 stream流解法
+        // Set<Integer> set1 = Arrays.stream(num1).boxed().collect(Collections.toCollection(HashSet::new));
+        // Set<Integer> set2 = Arrays.stream(num2).boxed().collect(Collections.toSet());
+        // set1.retainAll(set2);
+        // return set1.stream().mapToInt(Integer::valueOf).toArray();
     }
 }

@@ -54,5 +54,4 @@ public class Q03NonOverlappingIntervals {
         }
         return intervals.length - cnt;
     }
-
 }
