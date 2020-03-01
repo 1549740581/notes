@@ -326,7 +326,7 @@ protected Object createBean(String beanName, RootBeanDefinition mbd, Object[] ar
         - 内部使用InstantiationAwareBeanBeanPostProcessor进行拦截
         - 利用applyPropertyValues方法配合反射&setter()方法对bean属性进行赋值
     - exposedObject = initializedBean(beanName, exposedObject, mbd);进行bean的初始化工作
-    - registerDisposableBeanIfNecessary(beanName, bean, mbd)：如果bean实现了Disposable接口，进行相应的清理工作，注意源码里明显的说明
+    - registerDisposableBeanIfNecessary(beanName, bean, mbd)：如果bean实现了Disposable接口，进行相应的清理工作，注意源码里有明确说明
     只会针对 **!mbd.isPrototype()** 的bean进行清理操作
     - return exposedObject;
 ```java
@@ -482,7 +482,7 @@ protected Object initializeBean(final String beanName, final Object bean, RootBe
     return wrappedBean;
 }
 ```
-    
+
 ### 1.2 finishRefresh()
 finishRefresh();完成BeanFactory的初始化创建工作，这一步之后IOC容器就创建完成。
 - initLifecycleProcessor()：初始化和生命周期相关的BeanPostProcessor【LifecycleProcessor】：
