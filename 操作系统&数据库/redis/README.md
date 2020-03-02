@@ -1,3 +1,5 @@
+以上笔记1-8基本整理自慕课网课程：https://coding.imooc.com/class/151.html
+
 以下内容根据[敖丙](https://github.com/AobingJava/JavaFamily)《吊打面试官系列》整理补充。
 
 ------
@@ -75,7 +77,7 @@ scan命令可以参考：http://doc.redisfans.com/key/scan.html
 -   可以使用pub/sub功能完成：1：N的消息队列，但是pub/sub没有传统的消息队列的消息堆积功能
 -   Redis 5.0开始提供Stream流，也可以完成生产者消、费者模式
 
-## Redis如何实现延迟丢列？
+## Redis如何实现延迟队列？
 
 使用sortedset，使用时间戳作为score，消息内容作为key并调用zadd生产消息，消费者使用zrangebyscore指令获取N秒之前的数据轮训处理。
 
