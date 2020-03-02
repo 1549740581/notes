@@ -71,7 +71,7 @@ ls -F | grep "#" # 查找链接符号
 
 | 文件名          | 描述                                            |
 | :-------------- | :---------------------------------------------- |
-| redis-benchmark | redis基准性能测试工具                           |
+| redis-benchmark | redis性能基准测试工具                           |
 | redis-check-aof | redis append only file（AOF）检查工具           |
 | redis-ckeck-rdb | redis RDB检查工具                               |
 | redis-cli       | redis客户端工具                                 |
@@ -148,8 +148,8 @@ redis中String类型是最基本的类型，它是**二进制安全**的（放�
 **内部编码方式**
 
 - int：用于保存64位有符号的整型的字符串
-- embstr：用于保存**小于等于44字节**的字符串，有利于提高redis的工作效率
-- raw：用于保存**大于44字节**的字符串
+- embstr：用于保存**小于等于39字节**的字符串，有利于提高redis的工作效率
+- raw：用于保存**大于39字节**的字符串
 
 可以使用**OBJECT ENCODING key**查看对应key的内部编码方式。
 
@@ -220,7 +220,7 @@ redis本身的数据结构就是key-value键值对，散列这种数据结构也
 
 **相关命令**
 
-- hget、hgetall、hset、hdel：获取、设置、删除，注意尽量不要使用hgetall，就像尽量在MySQL中不要使用**select ***一样
+- hget、hgetall、hset、hdel：获取、设置、删除，注意尽量不要使用hgetall，就像尽量在MySQL中不要使用 **select \*** 一样
 
 ```shell
 >> hset user:1:info name sherman
@@ -639,7 +639,7 @@ HyperLogLog本质上还是字符串，但是可以通过极小内存完成独立
 
 - pfadd key elment [element ...]：添加元素
 
-* pfcoutn key：获取基数的估算值
+* pfcount key：获取基数的估算值
 * pfmerge destkey sourceKey [sourceKey ...]：和并多个HyperLogLog
 
 ```shell
@@ -726,13 +726,13 @@ redis在v3.2以后增加了地理位置的处理相关数据结构。
 
 ### 2.8 Stream
 
-Stream是redis5.0引入的一种新的数据类型，它是一种新的强大的支持多播的可持久化的消息队列，主要借鉴了kafaka的设计。
+Stream是redis5.0引入的一种新的数据类型，它是一种新的、强大的、支持多播的、可持久化的消息队列，主要借鉴了kafka的设计。
 
 redis stream的结构有一个消息链表，将所有加入的消息都都串起来，每个消息都有一个唯一的ID和对应的内容。消息是持久化的，redis重启后，内容还在。
 
 **相关操作**
 
-- xadd key id field string [field stirng ...]：向流中发送一条消息，每个消息在流中都必须有一个id，可以使用**\***表示让服务器自动生成id，这个id是根据当前时间戳自动生成的
+- xadd key id field string [field stirng ...]：向流中发送一条消息，每个消息在流中都必须有一个id，可以使用 **\*** 表示让服务器自动生成id，这个id是根据当前时间戳自动生成的
 - xlen key：当前消息队列长度
 - xrange key startID endID [COUNT count]：获取从startID到endID的消息，注意有两个特殊的符号：
   - -：表示无穷小
@@ -742,7 +742,7 @@ redis stream的结构有一个消息链表，将所有加入的消息都都串�
 - xdel key ID [ID ...]：删除指定ID的消息
 -  xread [COUNT count] [BLOCK milliseconds] STREAMS key [key ...] ID [ID ...]：可以阻塞方式获取数据
   - [BLOCK milliseconds]：0表示一直阻塞，否则阻塞对应时间。不加该选项表示非阻塞方式
-  - ID：注意ID有一个特殊符号**$**，表示当前消息队列中id最大值
+  - ID：注意ID有一个特殊符号 **$** ，表示当前消息队列中id最大值
   - xread count 2 streams queue $：必定返回nil，因为要比最大值还要大
   - xread count 1 block 0 streams queue $：阻塞方式获取下一个值，只有生产者生产了，才获取对应产品，否则一直等待
 
