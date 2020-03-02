@@ -51,10 +51,10 @@ OK
 
 ```shell
 >> slowlog get 2
-1) 1) (integer) 14				# 每条慢查询日志唯一递增标识符
-   2) (integer) 1309448221		# 处理命令unix时间戳
-   3) (integer) 15				# 命令执行时间，微秒为单位
-   4) 1) "ping"					# 组成该命令的参数数组
+1) 1) (integer) 14              # 每条慢查询日志唯一递增标识符
+   2) (integer) 1309448221      # 处理命令unix时间戳
+   3) (integer) 15              # 命令执行时间，微秒为单位
+   4) 1) "ping"                 # 组成该命令的参数数组
 2) 1) (integer) 13
    2) (integer) 1309448128
    3) (integer) 30
@@ -210,7 +210,7 @@ redis的发布订阅模型并不能完成传统消息队列**消息堆积**的�
 
 #### 3.3.4 补充
 
-当开启sentinel模式时，会默认开启一个**\__sentinel__::hello**频道，用于向其它哨兵节点广播消息。
+当开启sentinel模式时，会默认开启一个 **\__sentinel__::hello** 频道，用于向其它哨兵节点广播消息。
 
 
 
@@ -360,7 +360,7 @@ loadmodule /path/to/rebloom/rebloom.so
 - 如果都为1，则大概率该值存在布隆过滤器中，小概率不存在布隆过滤器中（误判）
 - 如果不全为1，则该值一定不存在布隆过滤器中
 
-<img src="./pics/布隆过滤器.png" style="zoom:75%;" />
+<img src="./pics/布隆过滤器.png" style="zoom:50%;" />
 
 **实际应用场景**
 
