@@ -230,30 +230,31 @@ esac
     do
         expression
     done
-示例1：并结合上面 **$\*** 和 **$@**区别：
+
+示例1：并结合上面 **$\*** 和 **$@** 区别：
 ```shell
 #/bin/bash
 echo "没有引号情况下："
 for val in $*
 do
-	echo $val
+    echo $val
 done
 echo "============"
 for val in $@
 do 	
-	echo $val
+    echo $val
 done
 
 echo "有引号情况下："
 for val in "$*"
 do
-	echo $val
+    echo $val
 done
 
 echo "============"
 for val in "$@"
 do 	
-	echo $val
+    echo $val
 done
 ```
 
@@ -264,7 +265,7 @@ sum=0
 # 注意有两层()，且不能写成++i
 for ((i=1;i<=100;i++))
 do 
-	sum=$[$sum + $i]
+    sum=$[$sum + $i]
 done
 echo $sum
 ```
@@ -285,8 +286,8 @@ i=$2
 end=$3
 while [ $i -le $end ]
 do
-	sum=$[$sum + $i]
-	i=$[$i + 1]
+    sum=$[$sum + $i]
+    i=$[$i + 1]
 done
 echo $sum
 ```
@@ -306,9 +307,9 @@ echo $val
 ### 1.6 函数
 Shell和其它语言一样也有函数的概念，有系统函数和自定义函数：
 - 系统函数：basename & dirname
-    - basename path \[suffix]：例如basename /home/sherman/tmp/foo.sh .sh -> foo
-    - dirname path：例如dir /home/sherman/tmp/foo.sh -> /home/sherman/tmp
-    - 总之：dirname path + / + basename path + suffix 拼接为 path
+    - basename path \[suffix]：例如`basename /home/sherman/tmp/foo.sh .sh` -> foo
+    - dirname path：例如`dirname /home/sherman/tmp/foo.sh` -> /home/sherman/tmp
+    - 总之：`dirname path + / + basename path + suffix` 拼接为 path
 - 自定义函数：基本语法
 ```shell
 [ function ] function_name[()]
