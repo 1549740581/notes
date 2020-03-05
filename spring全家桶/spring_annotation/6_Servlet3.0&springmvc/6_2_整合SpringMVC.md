@@ -2,18 +2,14 @@
 
 ### 1.1全注解整合SpringMVC原理
 **SpringMVC全注解原理：**
-在上一小节介绍过：在web容器启动时候，会扫描每个jar包下**META-INF/services/java.servlet.ServletContainInitializer**文件，
-并加载该文件中指定的类。查看spring-web-4.3.18.jar:
+在web容器启动时候，会扫描每个jar包下 **META-INF/services/java.servlet.ServletContainInitializer** 文件，并加载该文件中指定的类。查看spring-web-4.3.18.jar:
 
 ![](imgs/spring_web_jar.png)
 
-该文件中对应指定的类为：**org.springframework.web.SpringServletContainerInitializer**
-
-也就是说，当web容器启动时候，会自动加载SpringServletContainerInitializer这个类。
+该文件中对应指定的类为：**org.springframework.web.SpringServletContainerInitializer** ，也就是说当web容器启动时候，会自动加载SpringServletContainerInitializer这个类。
 
 下面继续分析SpringServletContainerInitializer类源码：
 ```java
-
 // 指定感兴趣的类型是WebApplicationInitializer，也就是会向onStartup方法的第一个参数中传递
 // WebApplicationInitializer的子类型
 @HandlesTypes(WebApplicationInitializer.class)
@@ -80,15 +76,15 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 }
 ```
 
-上述源码分析中：SpringServletContainerInitializer感兴趣的类型为：**WebApplicationInitializer**，并会将其子类型传递到重写方法
-onStartup的第一个参数中，继续查看WebApplicationInitializer有哪些子类型：
+上述源码分析中：SpringServletContainerInitializer感兴趣的类型为：**WebApplicationInitializer**，并会将其子类型传递到重写方法onStartup的第一个参数中，继续查看WebApplicationInitializer有哪些子类型：
 
 ![](imgs/sub_WebApplicationINitializer.png)
 
 接下来依次WebApplicationInitializer接口的子类型：
 - AbstractContextLoaderInitializer：
 ```java
-public abstract class AbstractContextLoaderInitializer implements WebApplicationInitializer {
+public abstract class AbstractContextLoaderInitializer implements
+    WebApplicationInitializer {
 
     protected final Log logger = LogFactory.getLog(getClass());
     
@@ -260,11 +256,12 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
     
     protected abstract Class<?>[] getServletConfigClasses();
 }
-``` 
+```
 **总结**：使用注解方式启动SpringMVC，就是要继承AbstractAnnotationConfigDispatcherServletInitializer，实现抽象方法指定DispatcherServlet的配置信息。
 
 ### 1.2 全注解启动SpringMVC示例
 **环境准备**：
+
 - 全注解方式整合SpringMVC，可以先将WEB-INF/目录下的两个文件 **applicationContext.xml** 和 **dispatcher-servlet.xml**文件删除，
 然后将web.xml文件也删除
 - pom.xml文件中导入相关依赖，同时因为删除web.xml，可以在pom.xml中加入插件防止不报错：
@@ -326,8 +323,7 @@ public class WebAppInitializerImpl extends AbstractAnnotationConfigDispatcherSer
 }
 ```
 
-**指定父子容器的配置类**：根容器扫描业务逻辑相关的组件，因此要排除掉Controller，而SpringMVC只扫描Controller，
-两者形成**互补配置**:
+**指定父子容器的配置类**：根容器扫描业务逻辑相关的组件，因此要排除掉Controller，而SpringMVC只扫描Controller，两者形成**互补配置**:
 ```java
 /**
  * Spring的配置类，不扫描Controller

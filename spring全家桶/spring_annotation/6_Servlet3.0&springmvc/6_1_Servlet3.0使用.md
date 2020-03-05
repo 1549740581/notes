@@ -21,8 +21,7 @@ public class HelloServlet extends HttpServlet {
 }
 ```
 
-将项目部署到Tomcat上，然后启动应用，访问**http://localhost:8080/spring_annotation_war_exploded/hello**路径就能看到
-页面输出：hello servlet3.0!
+将项目部署到Tomcat上，然后启动应用，访问 **http://localhost:8080/spring_annotation_war_exploded/hello** 路径就能看到页面输出：hello servlet3.0!
 
 Servlet中三大组件使用方式相同，分别借助：@WebServlet、@WebFilter、@WebListener。
 
@@ -31,12 +30,9 @@ Servlet中三大组件使用方式相同，分别借助：@WebServlet、@WebFilt
 
 具体来说：
 
-当Tomcat启动应用时候，会扫描当前应用每一个jar包里面**META-INF/services/javax.servlet.ServletContainerInitializer**指定的实现类，启动
-并运行这个实现类的方法。
+当Tomcat启动应用时候，会扫描当前应用每一个jar包里面**META-INF/services/javax.servlet.ServletContainerInitializer**指定的实现类，启动并运行这个实现类的方法。
 
-注意 **META-INF/services/javax...** 这个文件夹在IDEA中最终放的位置有疑问？
-
-这里测试：最终将它放在src/main/resources/META-INF/services/javax.servlet.ServletContainerInitializer处是有效的。
+测试：最终将它放在src/main/resources/META-INF/services/javax.servlet.ServletContainerInitializer处是有效的。
 
 - 新建一个ServletContainerInitializer接口的实现类FooServletContainerInitializer
 - 将FooServletContainerInitializer类的全限定类名放在javax.servlet.ServletContainerInitializer中
@@ -69,8 +65,7 @@ public class FooServletContainerInitializer implements ServletContainerInitializ
 ![](imgs/ServletContainerInitializer.png)
 
 ### 1.3 使用ServletContext注册三大组件
-Servlet3.0对于ServletContext进行了功能增强，可以对Servlet、Filter及Listener进行动态注册。
-所谓动态注册是指：Web应用在运行过程中通过代码对Servlet、Filter或者Listener进行注册为了系统安全考虑，这个动态注册是有限制的：智能在应用启动时进行，而不能在应用运行过程中进行注册。这个应用启动的时间点，可以通过ServletContextListener监听器来监听。
+Servlet3.0对于ServletContext进行了功能增强，可以对Servlet、Filter及Listener进行动态注册。所谓动态注册是指：Web应用在运行过程中通过代码对Servlet、Filter或者Listener进行注册，为了系统安全考虑，这个动态注册是有限制的：只能在应用启动时进行，而不能在应用运行过程中进行注册。这个应用启动的时间点，可以通过ServletContextListener监听器来监听。
 
 具体实现：
 - 新建三个组件DynamicFilter、DynamicListener、DynamicFilter，但是不使用@WebServlet、@WebFilter、@WebListener注解
@@ -146,4 +141,4 @@ public void onStartup(Set<Class<?>> set, ServletContext sc) throws ServletExcept
     dynamicFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 }
 ```
-这样组件就在运行期间，通过ServletContext注册进容器中了。访问**http://localhost:8080/spring_annotation_war_exploded/dynamic**路径也会有相应的消息输出。
+这样组件就在运行期间，通过ServletContext注册进容器中了。访问 **http://localhost:8080/spring_annotation_war_exploded/dynamic** 路径也会有相应的消息输出。
