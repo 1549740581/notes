@@ -22,7 +22,7 @@
 -   [Java8](https://github.com/tanglei302wqy/notes/tree/master/java/java8%E6%96%B0%E7%89%B9%E6%80%A7)
 -   [JVM](https://github.com/tanglei302wqy/notes/tree/master/java/jvm)
 -   [NIO](https://github.com/tanglei302wqy/notes/tree/master/java/nio)
--   知识点总结
+-   [知识点总结](https://github.com/tanglei302wqy/notes/tree/master/java/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93)
 
 
 
