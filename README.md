@@ -23,6 +23,7 @@
 -   [JVM](https://github.com/tanglei302wqy/notes/tree/master/java/jvm)
 -   [NIO](https://github.com/tanglei302wqy/notes/tree/master/java/nio)
 -   [知识点总结](https://github.com/tanglei302wqy/notes/tree/master/java/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93)
+-   [设计模式](https://github.com/tanglei302wqy/notes/tree/master/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
 
 
 
