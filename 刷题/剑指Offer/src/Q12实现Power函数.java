@@ -18,15 +18,15 @@ public class Q12实现Power函数 {
     private double powerInternal(double base, int exp) {
         if (exp == 0){
             return 1;
-		}
+        }
         if (exp == 1){
             return base;
-		}
+        }
         double ans = powerInternal(base, exp >> 1);
         ans *= ans;
         if ((exp & 1) == 1){
             ans *= base;
-		}
+        }
         return ans;
     }
 
