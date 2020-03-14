@@ -373,3 +373,69 @@ SSL（安全套接层）：为网络通信提供安全及数据完整性的一�
 - HTTPS需要到CA申请证书，HTTP不需要
 - HTTPS密文传输，HTTP明文传输
 - 连接方式不同，HTTPS默认使用443端口，HTTP使用80端口
+
+
+
+## 二. 补充
+
+### 2.1 http可以使用udp协议么？
+
+RFC2616标准：
+
+“*HTTP communication usually takes place over TCP/IP connections. **The default port is TCP 80*** *, but other ports can be used. This does  not preclude HTTP from being implemented on top of any other protocol  on the Internet, or on other networks.* **HTTP only presumes a reliable  transport; any protocol that provides such guarantees can be used**; the mapping of the HTTP/1.1 request and response structures onto the transport data units of the protocol in question is outside the scope  *of this specification.*”
+
+HTTP正常情况下使用TCP的80端口，可靠传输。当然如果以后存在其它基于可靠传输的的协议，它也可以使用。
+
+
+
+### 2.2 https
+
+参考：https://zhuanlan.zhihu.com/p/72616216
+
+#### 2.2.1 http缺点
+
+使用对称加密方式，直接明文传输。对称加密方式中，用于之后加密消息的秘钥不可能安全传输到服务器，反过来说，如果秘钥能够安全传输到服务器，那么消息也能安全传输到服务器。
+
+
+
+#### 2.2.2 https解决方案
+
+https就是要解决http明文传输的问题，更具体来说：怎么安全的把客户端生成的秘钥（对称加密，用于之后双方消息的加密）安全的传输到服务端。https使用：对称加密+非对称加密+CA来解决。
+
+https就是在http层之下，tcp层之上加入一个ssl（Security Socket Layer）层，之后的https通信流程都是在ssl层中完成的，可以认为ssl层就是http层和tcp层之间的一个隧道。默认使用443端口。
+
+
+
+#### 2.2.3 https通信流程
+
+-   服务端的管理人员会向CA（Certification Authority）机构申请一个证书，CA会根据服务端地址信息生成证书签名，并且经过机构私钥加密，中间人无法篡改。注意服务端申请的证书中包含了公钥key1
+-   当客户端向服务器发送一个https请求时，服务端会将包含公钥key1的证书发给客户端，客户端会进行证书校验工作，判断是否是合法的证书
+-   如果是合法的证书，客户端会自己生成一个随机的秘钥key2（对称加密，该秘钥用于之后通信消息的加密，需要安全传输到服务器），然后使用证书中的公钥key1对秘钥key2进行加密，并发送给服务器
+-   服务器因为包含公钥key1的私钥，因此可以使用私钥解密出key2，服务区端成功拿到key2后，之后双方的通信就是使用key2进行加密。
+
+
+
+#### 2.2.4 可以不使用CA么
+
+不能，虽然中间人不能有证书中公钥key1对应的私钥，无法解密key1，但是可以使用“狸猫换太子”的方式进行攻击，具体来说：
+
+-   当服务端发送包含公钥key1的证书给客户端，被中间人截获时，中间人自己有一套公钥（key3）-私钥，然后将证书中的公钥key1使用自己的公钥key3进行替换，然后发送给客户端
+-   客户端收到证书拿到公钥key3时，以为key3是服务器的公钥，使用key3加密自己生成的秘钥key2，并将加密结果发送给服务端
+-   中间人再次截获客户端发送给服务器的数据，因为是使用key3进行加密，所以中间人可以使用自己的私钥解密出key2，并将key2使用直接截获服务器证书中的key1进行加密，发送给服务器
+-   服务器收到数据，该数据就是使用证书中公钥key1加密客户端字节生成的秘钥key2，服务端解密之后获取key2，之后双方使用key2进行加密
+
+此时，客户端-服务器以为key2被安全的传输到服务端，双方开始通信。但是中间人也已经获取到key2了，客户端-服务器之间的消息都能够被中间人解析出来。
+
+因此客户端收到证书之后，一定要先验证证书的真伪，一般来说，**各个浏览器和操作系统都已经维护了所有权威证书机构的名称和公钥。**
+
+
+
+#### 2.2.5 缺点
+
+-   https协议需要多次握手，导致页面加载时间延长近50%
+-   https链接缓存不如http高效，增加数据开销和功耗
+-   申请证书收费，功能越强大，价格越高
+-   ssl涉及到的安全算法会消耗CPU资源，对服务器消耗比较大
+
+
+
