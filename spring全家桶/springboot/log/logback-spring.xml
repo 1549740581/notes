@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <contextName>logback-log-demo</contextName>
+
+    <!-- 配置LOG_PATTERN和FILE_PATH属性，方便之后直接饮用 -->
+    <property name="LOG_PATTERN" value="%date{HH:mm.sss} [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="FILE_PATH" value="C:/logs/log.%d{yyyy-MM-dd}.%i.log"/>
+
+    <!-- console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!-- 按照上面配置的LOG_PATTERN来打印日志 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <!-- file -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 将日志的级别设置为INFO -->
+            <level>ERROR</level>
+            <!-- 匹配到就禁止 -->
+            <onMatch>DENY</onMatch>
+            <!-- 未匹配到就接受 -->
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按照上面配置的FILE_PATH路径来保存日志 -->
+            <fileNamePattern>${FILE_PATH}</fileNamePattern>
+            <!-- 日志保存15天 -->
+            <maxHistory>15</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 单个日志文件的最大大小，超过则新建日志文件存储 -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <!-- 按照上面配置的LOG_PATTERN来打印日志 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- database -->
+    <!-- <appender name="DATABASE" class="ch.qos.logback.classic.db.DBAppender"> -->
+    <appender name="DATABASE" class="fun.sherman.log.config.CustomDBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <!-- 默认的BasicDataSource需要使用c3p0 -->
+            <!-- <dataSource class="org.apache.commons.dbcp.BasicDataSource"> -->
+            <dataSource class="com.alibaba.druid.pool.DruidDataSource">
+                <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
+                <url>jdbc:mysql://123.56.239.187/logback?serverTimezone=Asia/Shanghai</url>
+                <username>root</username>
+                <password>sherman</password>
+            </dataSource>
+        </connectionSource>
+    </appender>
+
+    <logger name="fun.sherman.log" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="DATABASE"/>
+    </root>
+</configuration>
