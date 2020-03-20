@@ -1,0 +1,15 @@
+url:
+  orderUrl: http://localhost:8081
+
+# \u4F7F\u7528ConfigurationProperties\u8FDB\u884C\u591A\u4E2A\u5C5E\u6027\u914D\u7F6E
+micro:
+  url:
+    orderUrl: http://localhost:8002
+    userUrl: http://localhost:8003
+    shippingUrl: http://localhost:8004
+
+# profile\u73AF\u5883\u914D\u7F6E
+spring:
+  profiles:
+    active:
+      - dev
