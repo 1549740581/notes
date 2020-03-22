@@ -5,9 +5,8 @@ import java.util.ArrayList;
 /**
  * dfs in graph
  * time complexity O(E+V)
- * 
- * @author sherman
  *
+ * @author sherman
  */
 public class GraphDFS {
 	private Graph graph;

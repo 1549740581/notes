@@ -7,9 +7,8 @@ import java.util.Scanner;
 
 /**
  * Use AdjTreeSet class in package presentation for a graph
- * 
- * @author sherman
  *
+ * @author sherman
  */
 public class Graph {
 	/**
@@ -29,10 +28,10 @@ public class Graph {
 	public Graph(String filename) {
 		File file = new File(filename);
 
-		// try with resource supported by JDK 1.7
-		// not need release resource explicitly in finally block
+        // try with resource supported by JDK 1.7
+        // not need release resource explicitly in finally block
 		try (Scanner scanner = new Scanner(file)) {
-			// skips commit line which starts with "#"
+            // skips commit line which starts with "#"
 			while (scanner.hasNext("#.*")) {
 				scanner.nextLine();
 			}
@@ -57,7 +56,7 @@ public class Graph {
 				if (x == y) {
 					throw new IllegalArgumentException("Self loop is not supported");
 				}
-				// due to this operation, time complexity becomes to O(E*log(V))
+                // due to this operation, time complexity becomes to O(E*log(V))
 				if (adj[x].contains(y)) {
 					throw new IllegalArgumentException("Parallel edge is not supported");
 				}
@@ -73,7 +72,7 @@ public class Graph {
 	/**
 	 * Make sure the given vertex v is valid, or it throws an
 	 * IllegalArgumentException.
-	 * 
+	 *
 	 * @param v given vertex
 	 */
 	private void validVertex(int v) {
@@ -106,7 +105,7 @@ public class Graph {
 
 	/**
 	 * Find if has edge between vertex i and j
-	 * 
+	 *
 	 * @param i vertex i
 	 * @param j vertex j
 	 * @return if has return true, otherwise false
@@ -119,7 +118,7 @@ public class Graph {
 
 	/**
 	 * Find all neighbors by given vertex v
-	 * 
+	 *
 	 * @param v given vertex v
 	 * @return Iterable of all neighbors by given vertex v
 	 */
@@ -130,7 +129,7 @@ public class Graph {
 
 	/**
 	 * Get the degree of given vertex v
-	 * 
+	 *
 	 * @param v given vertex x
 	 * @return degree of given vertex v
 	 */

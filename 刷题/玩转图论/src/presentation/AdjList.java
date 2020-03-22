@@ -67,7 +67,7 @@ public class AdjList {
 	/**
 	 * Make sure the given vertex v is valid, or it throws an
 	 * IllegalArgumentException.
-	 * 
+	 *
 	 * @param v given vertex
 	 */
 	private void validVertex(int v) {
@@ -101,7 +101,7 @@ public class AdjList {
 	/**
 	 * O(degree(v))
 	 * Find if has edge between vertex i and j
-	 * 
+	 *
 	 * @param i vertex i
 	 * @param j vertex j
 	 * @return if has return true, otherwise false
@@ -115,7 +115,7 @@ public class AdjList {
 	/**
 	 * O(degree(V))
 	 * Find all neighbors by given vertex v
-	 * 
+	 *
 	 * @param v given vertex v
 	 * @return all neighbors of vertex v, stored in an ArrayList
 	 */
@@ -126,7 +126,7 @@ public class AdjList {
 
 	/**
 	 * Get the degree of given vertex v
-	 * 
+	 *
 	 * @param v given vertex x
 	 * @return degree of given vertex v
 	 */

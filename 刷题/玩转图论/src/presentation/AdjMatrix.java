@@ -22,10 +22,10 @@ public class AdjMatrix {
 	public AdjMatrix(String filename) {
 		File file = new File(filename);
 
-		// try with resource supported by JDK 1.7
-		// not need release resource explicitly in finally block
+        // try with resource supported by JDK 1.7
+        // not need release resource explicitly in finally block
 		try (Scanner scanner = new Scanner(file)) {
-			// skip commit line which starts with "#"
+            // skip commit line which starts with "#"
 			while (scanner.hasNext("#.*")) {
 				scanner.nextLine();
 			}
@@ -61,7 +61,7 @@ public class AdjMatrix {
 	/**
 	 * Make sure the given vertex v is valid, or it throws an
 	 * IllegalArgumentException.
-	 * 
+	 *
 	 * @param v given vertex
 	 */
 	private void validVertex(int v) {
@@ -93,7 +93,7 @@ public class AdjMatrix {
 
 	/**
 	 * Find if has edge between vertex i and j
-	 * 
+	 *
 	 * @param i vertex i
 	 * @param j vertex j
 	 * @return if has return true, otherwise false
@@ -106,7 +106,7 @@ public class AdjMatrix {
 
 	/**
 	 * Find all neighbors by given vertex v
-	 * 
+	 *
 	 * @param v given vertex v
 	 * @return all neighbors of vertex v, stored in an ArrayList
 	 */
@@ -123,7 +123,7 @@ public class AdjMatrix {
 
 	/**
 	 * Get the degree of given vertex v
-	 * 
+	 *
 	 * @param v given vertex x
 	 * @return degree of given vertex v
 	 */

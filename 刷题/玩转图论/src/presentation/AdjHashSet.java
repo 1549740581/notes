@@ -67,7 +67,7 @@ public class AdjHashSet {
 	/**
 	 * Make sure the given vertex v is valid, or it throws an
 	 * IllegalArgumentException.
-	 * 
+	 *
 	 * @param v given vertex
 	 */
 	private void validVertex(int v) {
@@ -100,7 +100,7 @@ public class AdjHashSet {
 
 	/**
 	 * Find if has edge between vertex i and j
-	 * 
+	 *
 	 * @param i vertex i
 	 * @param j vertex j
 	 * @return if has return true, otherwise false
@@ -113,7 +113,7 @@ public class AdjHashSet {
 
 	/**
 	 * Find all neighbors by given vertex v
-	 * 
+	 *
 	 * @param v given vertex v
 	 * @return Iterable of all neighbors by given vertex v
 	 */
@@ -124,7 +124,7 @@ public class AdjHashSet {
 
 	/**
 	 * Get the degree of given vertex v
-	 * 
+	 *
 	 * @param v given vertex x
 	 * @return degree of given vertex v
 	 */
