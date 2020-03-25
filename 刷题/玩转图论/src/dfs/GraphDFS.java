@@ -41,9 +41,9 @@ public class GraphDFS {
 	private void dfs(int i) {
 		preOrder.add(i);
 		visited[i] = true;
-		for (int item : graph.getNeighbors(i)) {
-			if (!visited[item]) {
-				dfs(item);
+		for (int w : graph.getNeighbors(i)) {
+			if (!visited[w]) {
+				dfs(w);
 			}
 		}
 		postOrder.add(i);

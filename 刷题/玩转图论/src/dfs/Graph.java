@@ -75,7 +75,7 @@ public class Graph {
 	 *
 	 * @param v given vertex
 	 */
-	private void validVertex(int v) {
+	public void validVertex(int v) {
 		if (v < 0 || v >= V) {
 			throw new IllegalArgumentException("Vertex " + v + " is invalid");
 		}
