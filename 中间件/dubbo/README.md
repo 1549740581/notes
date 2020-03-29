@@ -119,7 +119,7 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 ### 1.4 dubbo-helloworld
 
-源码：xxxx
+[源码链接](https://github.com/tanglei302wqy/notes/tree/master/%E4%B8%AD%E9%97%B4%E4%BB%B6/dubbo/src/dubbo-projects)
 
 #### 1.4.1 需求
 
@@ -226,7 +226,7 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 ### 1.5 整合Spring Boot
 
-上述dubbo-helloworld采用spring框架，使用的是xml配置文件形式。Spring Boot整合dubbo可以直接使用注解版本，源码：xxxxxxxxxxxx
+上述dubbo-helloworld采用spring框架，使用的是xml配置文件形式。Spring Boot整合dubbo可以直接使用注解版本，[源码链接](https://github.com/tanglei302wqy/notes/tree/master/%E4%B8%AD%E9%97%B4%E4%BB%B6/dubbo/src/springboot-dubbo-projects)
 
 **项目结构**
 
@@ -277,4 +277,169 @@ server:
 - 注册服务：@Service，获取服务：@Reference
 
 
+
+## 二、Dubbo配置
+
+### 2.1 配置覆盖顺序
+
+<img src="./pics/dubbo配置原则.jpg" style="zoom:80%;" />
+
+- JVM启动 -D 参数优先，可以方便用户在部署和启动时候进行参数重写
+- dubbo.xml，即在相应的xml文件（provider.xml和consumer.xml）中配置dubbo标签
+- dubbo.properties，可以在resources下专门新建一个dubbo.properties，相当于dubbo的缺省值，通常用于共享公共配置，例如应用名
+
+### 2.2 启动时检查
+
+dubbo缺省配置情况下，在启动时候会检查依赖的服务是否可用，不可用时会抛出异常，组织spring初始化完成，以便上线之前能够尽早发现问题，默认 `check=true`。
+
+可以通过 `check=false`关闭检查，例如，测试时某些服务不关心，或者出现了循环依赖，必须有一方先启动。
+
+另外，如果spring容器是懒加载的，或者通过API变成延迟引用服务，一定需要关闭check，否则服务临时不可用时，会抛出异常，拿到null值，如果 `check=false`，总会返回引用，当服务恢复时，能自动连上。
+
+几种关闭启动时检查方式：
+
+- 关闭当前消费者单个服务：`<dubbo:reference interface="fun.sherman.mall.IUserService" id="iUservice" check="false"/>`
+- 关闭当前消费者所有服务：`<dubbo:consumer check="false"/>`
+- 关闭注册中心启动时检查：`<dubbo:registry check="false">`
+
+### 2.3 超时时间
+
+由于网络或服务端不可靠，会导致调用出现一种不确定的中间状态（超时）。为了避免超时导致客户端资源（线程）挂起耗尽，必须设置超时时间。
+
+超时配置的覆盖规则：
+
+- 精度优先：方法级别优先，接口级别次之，全局配置最后
+- 消费者优先：**如果级别一样**，则消费方优先，提供方次之
+
+<img src="./pics/超时配置优先级.jpg" style="zoom:70%;" />
+
+配置原则：
+
+dubbo推荐尽可能在provider端配置consumer端属性：
+
+- 作为服务的提供者，比服务的使用者更加清楚服务性能参数，例如超时时间，合理的重试次数等
+- 在provider端配置参数后，如果consumer端不进行配置参数，provider端配置的参数可以作为consumer端参数缺省值。否则，consumer端会使用consumer端的全局参数值，这对provider端是不可控的，也是不合理的。
+
+### 2.4 超时次数
+
+失败自动切换，当出现失败，重试其它服务器，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)，retries="0"代表不重试。相关配置：
+
+```xml
+1. <dobbo:service retries="2" />
+2. <double:reference retries="2" />
+3. 
+<dubbo:reference>
+    <dubbo:method name="findFoo" retries="2" />
+</dubbo:reference>
+```
+
+设置规则：
+
+- 幂等操作（查询、删除、修改）：可以设置重试次数
+- 非幂等操作（新增）：不能设置超时次数
+
+### 2.5 多版本
+
+当一个接口实现，出现不兼容升级时，可以用版本号过渡，版本号不同的服务相互间不引用。可以按照以下的步骤进行版本迁移：
+
+- 在低压力时间段，先升级一半提供者为新版本
+
+- 再将所有消费者升级为新版本
+
+- 然后将剩下的一半提供者升级为新版本
+
+```xml
+<!-- provider：第一个版本 -->
+<dubbo:service interface="fun.sherman.mall.service.IUserService" ref="userServiceImpl01" timeout="1000" version="1.0.0" />
+<bean id="userServiceImpl01" class="fun.sherman.mall.service.impl.UserServiceImpl01" />
+
+<!-- provider：第二个版本 -->
+<dubbo:service interface="fun.sherman.mall.service.IUserService" ref="userServiceImpl02" timeout="1000" version="2.0.0" />
+<bean id="userServiceImpl02" class="fun.sherman.mall.service.impl.UserServiceImpl02" />
+
+<!-- consumer：消费者使用对应的版本 -->
+<dubbo:reference interface="fun.sherman.mall.service.IUserService" id="iUserService" timeout="5000" retries="3" version="2.0.0" />
+```
+
+### 2.6 本地存根
+
+远程服务后，客户端通常只剩下接口，而实现全在服务器端，但提供方有些时候想在客户端也执行部分逻辑，比如：做 ThreadLocal  缓存，提前验证参数，调用失败后伪造容错数据等等，此时就需要在 API 中带上 Stub，客户端生成 Proxy 实例，会把 Proxy  通过构造函数传给 Stub [[1\]](https://dubbo.apache.org/zh-cn/docs/user/demos/local-stub.html#fn1)，然后把 Stub 暴露给用户，Stub 可以决定要不要去调 Proxy。
+
+![](./pics/本地存根.jpg)
+
+使用方法：
+
+- 在本地编写一个远程服务接口的本地存根实现（UserServiceImplStub），并且该实现类必须有一个有参构造器，用于传入真正的代理对象
+- 配置：`<dubbo:service interface="fun.sherman.mall.service.IUserservice" stub=funlmsherman.mall.service.impl.UserviceImplStub`
+- 实际开发中，一般会将本地存根放入到公共接口项目（mall-common-interfaces）中，以便调用
+
+### 2.7 整合Spring Boot
+
+dubbo整合Spring Boot一般有三种方式：
+
+**dubbo-starter配置**
+
+导入dubbo-starter后，在application.properties中进行属性配置，使用@Service来暴露服务，使用@Reference来引用服务。要使用该功能，一定是使用@EnableDubbo来开启注解功能。
+
+**保留dubbo.xml配置**
+
+可以将dubbo.xml配置文件（例如，provider.xml和consumer.xml）放入到类路径下，然后在主配置类上通过`@ImportResource(location="classpath:provider.xml")` 注解来引用即可。
+
+**使用注解版配置**
+
+直接使用@Configuration和@Bean对dubbo进行注解配置，之前xml文件中每一个 **\<dubbo:xxx/\>** 标签都有一个对应的 **xxxConfig** 类对应：
+
+- 编写配置文件类
+- 使用@DubboComponentScan将扫描规则指定扫描对应的配置类
+
+```java
+@Configuration
+public class DubboConfig {
+    @Bean
+    public ApplicationConfig applicationConfig() {
+        ApplicationConfig ac = new ApplicationConfig();
+        ac.setName("springboot-user-service-consumer");
+        return ac;
+    }
+    
+    @Bean
+    public RegistryConfig registryConfig() {
+        RegistryConfig rc = new RegistryConfig();
+        rc.setProtocol("zookeeper");
+        rc.setAddress("127.0.0.1:2181");
+        return rc;
+    }
+    
+    @Bean
+    public ProtocolConfig protocolConfig() {
+        ProtocolConfig pc = new ProtocolConfig();
+        pc.setName("dubbo");
+        pc.setPort("20800");
+        return pc;
+    }
+    
+    @Bean
+    // 注意入参IUserService直接是从spring容器中获取
+    public ServiceConfig<IUserService> serviceConfig(IUserService iUserService) {
+        ServiceConfig<IUserService> sc = new ServiceConfig<>();
+        sc.setInterface(IUserService.class);
+        sc.setRef(iUserService);
+        sc.setVersion("1.0.0");
+        
+        // 设置method
+        MethodConfig mc = new MethodConfig();
+        mc.setName("getUserAddressList");
+        mc.setTimeout(1000);
+        
+        List<MethodConfig> mcs = new ArrayList<>();
+        mcs.add(mc);
+        
+        sc.setMethods(mcs);
+        
+        return sc;
+    }
+    
+    // ...
+}
+```
 
