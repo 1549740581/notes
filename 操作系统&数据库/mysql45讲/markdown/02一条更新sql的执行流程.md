@@ -4,7 +4,7 @@ redo log和binlog最主要有三点不同：
 
 - redo log是InnoDB引擎特有的日志模块，以插件方式集成进MySQL；binlog是MySQL Server层实现的，所有存储引擎都能够使用
 - redo log是物理日志，纪录例如“在某个数据页上做了什么修改”；binlog是逻辑日志记录的是这个语句的原始逻辑，例如：“给ID=2的这行数据中字段count+1”
-- redo log是循环写，主要涉及到 `checkpoint` 和 `write pos`两个指针的移动；binlog是追加写，binlog文件写到一定大小之后会切换到另一个，并不会覆盖之前的日志
+- redo log是循环写，主要涉及到 `checkpoint` 和 `write pos` 两个指针的移动；binlog是追加写，binlog文件写到一定大小之后会切换到另一个，并不会覆盖之前的日志
 
 
 
@@ -15,9 +15,7 @@ Redo log主要涉及的技术是：WAL（Write Ahead Logging），它的关键�
 InnoDB的redo log大小是固定的，但是可以自定义配置，例如配置为一组4个文件，每个文件大小为1GB，则redo log大小为4GB。从头开始写，写到redo log末尾就重新回到开头循环写：
 
 - write pos：当前记录的位置，一边写一遍后移，写到id_logfile_3末尾时就回到开头位置
-- checkout：当前需要移除的位置，也是向后推移并且循环的，移除数据之前需要把记录更新到数据文件中
-
-<img src="./pics/redolog循环写.png" align=center style="zoom:50%"/>
+- checkout：当前需要移除的位置，也是向后推移并且循环的，移除数据之前需要把记录更新到数据文件中<img src="../pics/redolog循环写.png" align=center style="zoom:38%;" />
 
 InnoDB的redo log能够保证数据库的crash-safe能力，即即使数据重启，数据也不会丢失。
 
@@ -39,7 +37,7 @@ InnoDB存储引擎在执行简单的update操作时，会使用redo log和binlog
 - 执行器生成这个操作的binlog，并把binlog写入磁盘
 - 执行器调用引擎提交事务接口，把刚刚redo log的状态由 `prepare` 改成 `commit` 状态
 
-<img src="./pics/两阶段提交.png" align=center style="zoom:50%"/>
+<img src="../pics/两阶段提交.png" align=center style="zoom:50%"/>
 
 **为什么要进行两阶段提交？**
 
