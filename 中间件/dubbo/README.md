@@ -278,7 +278,7 @@ server:
 
 
 
-## 二、Dubbo配置
+## 二、dubbo配置
 
 ### 2.1 配置覆盖顺序
 
@@ -459,3 +459,191 @@ public class DubboConfig {
 - 服务提供者全部宕掉后，服务消费者应用将无法使用，并无限次重连等待服务提供者恢复
 
 dubbo直连：直接在consumer端采用 **@Reference(url="host:port")** 形式进行直连
+
+
+
+### 3.2 dubbo负载均衡配置
+
+在集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 random 随机调用。
+
+**Random LoadBalance**
+
+随机，按权重设置随机概率。在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。
+
+**RoundRobin LoadBalance**
+
+轮循，按公约后的权重设置轮循比率。存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。
+
+**LeastActive LoadBalance**
+
+最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。
+
+**ConsistentHash LoadBalance**
+
+一致性 Hash，相同参数的请求总是发到同一提供者。当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。缺省情况下只对第一个参数进行Hash，如果需要修改，可以配置：`<dubbo:parameter key="hash.arguments" value="0,1" />`，缺省时用160个虚拟节点，如果需要修改，可以配置：`<dubbo:parameter key="hash.nodes" value="320" />`
+
+
+
+### 3.3 服务降级
+
+当服务器压力剧增的情况下，根据实际业务情况及流量，对一些服务和页面有策略的不处理或换种简单的方式处理，从而**释放服务器资源以保证核心交易正常运作或高效运作**。可以通过服务降级功能临时屏蔽某个出错的非关键服务，并定义降级后的返回策略。
+
+向注册中心写入动态配置覆盖规则：
+
+```java
+RegistryFactory registryFactory = ExtensionLoader
+    .getExtensionLoader(RegistryFactory.class)
+    .getAdaptiveExtension();
+Registry registry = registryFactory
+    .getRegistry(URL.valueOf("zookeeper://127.0.0.1:2181"));
+registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=configurators&dynamic=false&application=foo&mock=force:return+null"));
+```
+
+其中：
+
+- mock=force:return+null：表示消费者对该服务的调用都直接返回null值，不发起远程过程调用。用来屏蔽不重要服务不可用时对于调用方的影响
+- 还而已改为mock=fail:return+null：表示消费方对该服务的方法调用失败后，再返回null值，不抛出异常。用来容忍不重要服务不稳定时对调用方的影响
+
+以上两个配置也可以直接在Dubbo Admin的消费者端进行配置，对对应服务进行屏蔽或者容错处理。
+
+
+
+### 3.4 集群容错
+
+在集群调用失败时，Dubbo提供了多种容错方案，默认容错方案为 **failover** 重试。具体集群容错模式包括：
+
+**failover cluster**
+
+失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)：
+
+```xml
+<dubbo:service retries="2" />
+<!-- 或者 -->
+<dubbo:reference retries="2" />
+<!-- 或者 -->
+<dubbo:reference>
+    <dubbo:method name="findFoo" retries="2" />
+</dubbo:reference>
+
+```
+
+**failfast cluster**
+
+快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。
+
+**failsafe cluster**
+
+失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。
+
+**failback cluster**
+
+失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。
+
+**forking cluster**
+
+并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks="2" 来设置最大并行数。
+
+**broadcast cluster**
+
+广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
+
+集群模式配置：直接在消费方或者提供方配置集群模式即可：
+
+```xml
+<dubbo:service cluster="failsafe" />
+<!-- 或者 -->
+<dubbo:reference cluster="failsafe" />
+```
+
+
+
+### 3.5 整合Hystrix
+
+Hystrix 旨在通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能。
+
+**配置spring-cloud-starter-netflix-hystrix**
+
+spring boot官方提供了对hystrix的集成，直接在pom.xml里加入依赖：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+    <version>1.4.4.RELEASE</version>
+</dependency>
+```
+
+然后主配置类上加上@EnableHystrix来启动Hystrix starter：
+
+```java
+@SpringBootApplication
+@EnableHystrix
+public class ProviderApplication {
+	// ...
+}
+```
+
+**配置Provider端**
+
+在Dubbo的Provider上增加@HystrixCommand配置，这样子调用就会经过Hystrix代理：
+
+```java
+@Service(version = "1.0.0")
+public class HelloServiceImpl implements HelloService {
+    @HystrixCommand(commandProperties = {
+     @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000") })
+    @Override
+    public String sayHello(String name) {
+        // System.out.println("async provider received: " + name);
+        // return "annotation: hello, " + name;
+        throw new RuntimeException("Exception to show hystrix enabled.");
+    }
+}
+```
+
+**配置Consumer端**
+
+对于Consumer端，则可以增加一层method调用，并在method上配置@HystrixCommand。当调用出错时，会走到fallbackMethod = "reliable"的调用里：
+
+```java
+@Reference(version = "1.0.0")
+private HelloService demoService;
+
+@HystrixCommand(fallbackMethod = "reliable") // 指定回调方法
+public String doSayHello(String name) {
+    return demoService.sayHello(name);
+}
+
+public String reliable(String name) {
+    return "hystrix fallback value";
+}
+```
+
+
+
+## 四、dubbo原理
+
+### 4.1 RPC原理
+
+<img src="./pics/RPC调用流程.jpg" style="zoom:70%;" />
+
+一次完整的RPC（同步 ）调用过程如下：
+
+- **消费方调用以本地调用方式方式调用服务**
+- client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体
+- client stub找到服务地址，并将消息发送到服务端
+- server stub接收到消息后进行解码
+- server stub根据解码结果调用本地的服务
+- 本地服务执行并将结果返回给server stub
+- server stub将返回结果打包成消息并发送给消费方
+- client stub接收到消息，并进行解码
+- **服务消费方得到最终结果**
+
+对于dubbo而言，对于用户而言，只有第一步和最后一步 ，中间过程全部被封装起来了，中间过程细节对于用户来说都是透明的。
+
+### 4.2 netty通信原理
+
+Netty是一个异步事件驱动的网络应用程序框架， 用于快速开发可维护的高性能协议服务器和客户端。它极大地简化并简化了TCP和UDP套接字服务器等网络编程。
+
+<img src="./pics/netty通信原理.jpg" style="zoom:60%;" />
