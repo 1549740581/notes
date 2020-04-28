@@ -1,0 +1,21 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #    driver-class-name: org.gjt.mm.mysql.Driver
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://123.56.239.187:3306/springcloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimeZone=%2B8
+    username: root
+    password: sherman
+  devtools:
+    restart:
+      trigger-file: trigger.txt
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: fun.sherman.springcloud.entity
+

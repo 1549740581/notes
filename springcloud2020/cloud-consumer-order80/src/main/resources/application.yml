@@ -1,0 +1,12 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-order-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://123.56.239.187:3306/springcloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimeZone=%2B8
+    username: root
+    password: sherman
