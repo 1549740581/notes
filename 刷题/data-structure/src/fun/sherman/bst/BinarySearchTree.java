@@ -6,6 +6,9 @@ import java.util.Stack;
 
 /**
  * 不包含重复元素的二分查找树
+ * Created on 2020/4/27
+ *
+ * @author sherman tang
  */
 public class BinarySearchTree<E extends Comparable<E>> {
     private class Node {
