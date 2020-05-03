@@ -82,9 +82,11 @@ public class BSTImplMap<K extends Comparable<K>, V> implements Map<K, V> {
         }
         int cmp = key.compareTo(node.key);
         if (cmp < 0) {
-            return remove(node.left, key);
+            node.left = remove(node.left, key);
+            return node;
         } else if (cmp > 0) {
-            return remove(node.right, key);
+            node.right = remove(node.right, key);
+            return node;
         } else {
             if (node.left == null) {
                 Node rightNode = node.right;
